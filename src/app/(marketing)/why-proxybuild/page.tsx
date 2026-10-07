@@ -12,9 +12,26 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Why ProxyBuild",
+  title:
+    "Why ProxyBuild Africa — The Safest Way to Build in Nigeria from Abroad",
   description:
-    "Discover why thousands of Africans in the diaspora trust ProxyBuild to manage their construction projects back home with full transparency.",
+    "Discover why Africans in the UK, USA, Canada and beyond choose ProxyBuild to build back home. Our team executes your project directly — no outsourcing, no middlemen, full transparency and milestone-gated payments.",
+  keywords: [
+    "why ProxyBuild Africa",
+    "safe way to build house Nigeria",
+    "trusted construction company Nigeria diaspora",
+    "avoid construction scam Nigeria",
+    "build Nigeria from UK safely",
+    "diaspora Nigeria construction problem",
+    "construction management Nigeria transparent",
+  ],
+  alternates: { canonical: "https://proxybuild.africa/why-proxybuild" },
+  openGraph: {
+    title: "Why ProxyBuild Africa — Build Back Home Without the Fear",
+    description:
+      "ProxyBuild's team is on your site, executing the build directly. Real-time dashboard. Milestone-gated payments. No outsourcing.",
+    url: "https://proxybuild.africa/why-proxybuild",
+  },
 };
 
 const problems = [
@@ -40,13 +57,13 @@ const differences = [
   },
   {
     icon: Users,
-    title: "Vetted Professionals",
-    desc: "Every contractor, supervisor and supplier in our network has been reference-checked, interviewed and performance-rated on previous projects. No unknowns on your site.",
+    title: "Our Team On Your Site",
+    desc: "ProxyBuild's own project managers, site supervisors and tradespeople are the ones on the ground. Every person working on your build is part of our team — trained, accountable and performance-tracked.",
   },
   {
     icon: Gauge,
-    title: "Accountable Project Management",
-    desc: "You get a dedicated ProxyBuild project manager who owns your build. They attend site, manage contractors and report to you — not the other way around.",
+    title: "Direct Execution, Not Referrals",
+    desc: "We are not a middleman or a platform that connects you to someone else. ProxyBuild directly executes your project — our people are on your site from day one to handover, and we own every outcome.",
   },
 ];
 
@@ -129,10 +146,10 @@ export default function WhyProxyBuildPage() {
               Your Build, Fully Managed
             </h2>
             <p className="text-[var(--pb-text-muted)] mb-6 leading-relaxed">
-              ProxyBuild is not a referral service. We are not just connecting
-              you to a builder and walking away. We are your project manager,
-              your quality inspector and your financial watchdog — from day one
-              to handover.
+              ProxyBuild is not a referral service. We are not a middleman.
+              Our own project managers, site supervisors and tradespeople are
+              on your site, executing the build directly — from ground-breaking
+              to handover. We own every outcome.
             </p>
             <div className="space-y-4">
               {differences.map(({ icon: Icon, title, desc }) => (

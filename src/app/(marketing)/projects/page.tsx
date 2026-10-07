@@ -3,9 +3,27 @@ import Link from "next/link";
 import { MapPin, Calendar, CheckCircle2, Clock, Building2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title:
+    "Our Projects — Completed Homes, Hotels & Commercial Builds in Nigeria | ProxyBuild Africa",
   description:
-    "Browse ProxyBuild Africa's portfolio of residential and commercial construction projects across Lagos, Abuja, Port Harcourt and beyond.",
+    "Browse ProxyBuild Africa's portfolio of completed and active construction projects across Lagos, Abuja, Port Harcourt, Ibadan and Enugu. New builds, renovations, hotels and commercial blocks — all executed by our own team.",
+  keywords: [
+    "ProxyBuild Africa projects",
+    "construction projects Nigeria",
+    "completed homes Nigeria diaspora",
+    "house built Nigeria from UK",
+    "hotel construction Nigeria",
+    "Lagos construction projects",
+    "Abuja construction projects",
+    "Port Harcourt construction",
+  ],
+  alternates: { canonical: "https://proxybuild.africa/projects" },
+  openGraph: {
+    title: "Our Projects — Homes, Hotels & Commercial Builds in Nigeria",
+    description:
+      "Completed and active construction projects managed by ProxyBuild's own team across Lagos, Abuja, Port Harcourt and beyond.",
+    url: "https://proxybuild.africa/projects",
+  },
 };
 
 type ProjectStatus = "Completed" | "In Progress" | "Handover";
@@ -123,7 +141,7 @@ const projects: {
     year: "2024",
     status: "Completed",
     highlight:
-      "Three-storey commercial office block with ground-floor retail. ProxyBuild managed design coordination, contractors and fit-out.",
+      "Three-storey commercial office block with ground-floor retail. ProxyBuild's team handled design coordination, construction and full fit-out directly.",
     initials: "AC",
   },
   {
@@ -138,6 +156,19 @@ const projects: {
     highlight:
       "Straightforward but well-executed 3-bedroom build with BQ. Completed two weeks ahead of schedule.",
     initials: "OP",
+  },
+  {
+    title: "Enugu Road Guest House",
+    type: "12-Room Boutique Hotel",
+    location: "Independence Layout",
+    city: "Enugu",
+    client: "Diaspora Client — UK",
+    duration: "18 months",
+    year: "2025",
+    status: "In Progress",
+    highlight:
+      "12-room boutique guest house currently at first-floor level. Full construction by our team — structural, plumbing, electrical and interior design coordination all handled in-house.",
+    initials: "EG",
   },
 ];
 

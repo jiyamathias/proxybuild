@@ -3,9 +3,23 @@ import Link from "next/link";
 import { Target, Eye, Users, ShieldCheck, TrendingUp, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About ProxyBuild Africa — Our Story, Mission and Team",
   description:
-    "Learn about ProxyBuild Africa — who we are, why we exist, and our mission to help the African diaspora build back home with confidence.",
+    "ProxyBuild Africa was founded to solve the construction crisis facing Africans in the diaspora. Learn who we are, our mission, and why our team-led approach delivers where others fail. Based in Lagos, operating across Nigeria.",
+  keywords: [
+    "about ProxyBuild Africa",
+    "construction company Nigeria about",
+    "diaspora construction firm Nigeria",
+    "Nigerian construction management team",
+    "ProxyBuild Lagos",
+  ],
+  alternates: { canonical: "https://proxybuild.africa/about" },
+  openGraph: {
+    title: "About ProxyBuild Africa — Our Story, Mission and Team",
+    description:
+      "Founded in 2022, ProxyBuild Africa exists because too many diaspora Africans have lost money trying to build back home. Our team changes that.",
+    url: "https://proxybuild.africa/about",
+  },
 };
 
 const values = [
@@ -21,8 +35,8 @@ const values = [
   },
   {
     icon: Users,
-    title: "Trusted Networks",
-    desc: "Every contractor, supervisor and supplier in our network is vetted, reference-checked and performance-tracked.",
+    title: "Our People, Your Build",
+    desc: "Every project manager, site supervisor and tradesperson on your build is part of the ProxyBuild team — trained, accountable and performance-tracked across every project we run.",
   },
   {
     icon: TrendingUp,
@@ -40,7 +54,7 @@ const team = [
   {
     name: "Head of Operations",
     initials: "AO",
-    bio: "Former project manager at one of Lagos's largest civil engineering firms. Oversees all active projects, contractor relationships and quality standards across ProxyBuild's portfolio.",
+    bio: "Former project manager at one of Lagos's largest civil engineering firms. Oversees all active projects, site operations and quality standards across ProxyBuild's entire portfolio.",
   },
   {
     name: "Head of Client Success",
@@ -123,8 +137,8 @@ export default function AboutPage() {
                 In 2022, ProxyBuild Africa was incorporated in Lagos with a clear
                 mandate: provide the African diaspora with a fully managed,
                 digitally transparent construction execution service. Not just
-                connecting you to a builder — but being your eyes, your voice and
-                your enforcer on the ground.
+                building it for you — being your eyes, your voice and the team
+                that actually executes every phase on the ground.
               </p>
               <p>
                 Today we manage projects across Lagos, Abuja, Port Harcourt,

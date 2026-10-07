@@ -11,7 +11,7 @@ export function MarketingFooter() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4" style={{ fontSize: "16px" }}>
-              <ProxyBuildLogo size={32} wordmark />
+              <ProxyBuildLogo size={56} wordmark />
             </Link>
             <p className="text-sm text-[var(--pb-text-muted)] leading-relaxed">
               We Build Your Vision — Even While You&apos;re Away.

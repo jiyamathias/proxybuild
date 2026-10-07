@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -71,18 +72,14 @@ export function DashboardPreview() {
         <div className="w-44 shrink-0 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] flex flex-col">
           {/* Sidebar logo */}
           <div className="px-4 py-3 border-b border-[var(--pb-border)]">
-            <div className="flex items-center gap-2">
-              {/* PB icon */}
-              <div className="h-6 w-6 rounded bg-[var(--pb-navy)] flex items-center justify-center shrink-0">
-                <span className="text-[10px] font-black leading-none">
-                  <span className="text-white">P</span>
-                  <span className="text-[var(--pb-green)]">B</span>
-                </span>
-              </div>
-              <span className="text-xs font-semibold text-white">
-                Proxy<span className="text-[var(--pb-green)]">Build</span>
-              </span>
-            </div>
+            <Image
+              src="/logo-wordmark.png"
+              alt="ProxyBuild"
+              width={1566}
+              height={522}
+              style={{ height: 24, width: "auto" }}
+              priority
+            />
           </div>
 
           {/* Nav items */}

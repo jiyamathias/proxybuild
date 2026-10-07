@@ -4,8 +4,22 @@ import { Mail, MessageCircle, Calendar } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Get in touch with the ProxyBuild Africa team.",
+  title: "Contact ProxyBuild Africa — Book a Free Consultation",
+  description:
+    "Get in touch with the ProxyBuild Africa team. Book a free consultation, send us an email or WhatsApp us directly. We manage construction projects in Nigeria for the African diaspora.",
+  keywords: [
+    "contact ProxyBuild Africa",
+    "book construction consultation Nigeria",
+    "ProxyBuild WhatsApp",
+    "diaspora construction enquiry Nigeria",
+  ],
+  alternates: { canonical: "https://proxybuild.africa/contact" },
+  openGraph: {
+    title: "Contact ProxyBuild Africa — Book a Free Consultation",
+    description:
+      "Ready to start your project? Contact our team to book a free consultation and discuss your build in Nigeria.",
+    url: "https://proxybuild.africa/contact",
+  },
 };
 
 export default function ContactPage() {

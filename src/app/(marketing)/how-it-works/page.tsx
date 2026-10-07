@@ -8,11 +8,28 @@ import {
   KeyRound,
   ArrowRight,
 } from "lucide-react";
+import { FAQJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
-  title: "How It Works",
+  title:
+    "How ProxyBuild Works — 5 Steps from Consultation to Key Handover in Nigeria",
   description:
-    "Discover ProxyBuild's 5-step process — from consultation to completed construction — all managed remotely with full transparency.",
+    "See exactly how ProxyBuild Africa manages your construction project in Nigeria from start to finish. Book a consultation, approve your plan, and our team builds it — you track every milestone from abroad.",
+  keywords: [
+    "how ProxyBuild works",
+    "construction process Nigeria",
+    "build house Nigeria step by step",
+    "how to build in Nigeria from UK",
+    "remote construction management Nigeria",
+    "ProxyBuild process",
+  ],
+  alternates: { canonical: "https://proxybuild.africa/how-it-works" },
+  openGraph: {
+    title: "How ProxyBuild Works — From Consultation to Handover",
+    description:
+      "Our 5-step process takes your project from initial brief to final key handover — managed directly by our team in Nigeria while you stay abroad.",
+    url: "https://proxybuild.africa/how-it-works",
+  },
 };
 
 const steps = [
@@ -37,17 +54,17 @@ const steps = [
       "Phased milestone schedule with clear deliverables",
       "Itemised bill of quantities and cost breakdown",
       "Structured payment plan tied to milestones",
-      "Proposed site team and contractor roster",
+      "Proposed ProxyBuild site team for your project",
     ],
   },
   {
     number: "03",
     icon: HardHat,
     title: "We Manage Everything On the Ground",
-    desc: "Our site supervisors and project managers take over. We procure materials, coordinate trades, manage contractors and hold every party accountable to the agreed schedule and budget. You never have to chase anyone — we do.",
+    desc: "Our site supervisors and project managers take direct control. Our team procures materials, executes every phase of the build and is accountable to the agreed schedule and budget. You never have to chase anyone — we handle it.",
     details: [
-      "Dedicated site supervisor on your project",
-      "Contractor briefing, supervision and performance management",
+      "Dedicated ProxyBuild site supervisor on your project",
+      "Our team executes every phase — no outsourcing, no middlemen",
       "Material procurement and quality verification",
       "Milestone sign-off before phase payments are released",
     ],
@@ -81,6 +98,30 @@ const steps = [
 export default function HowItWorksPage() {
   return (
     <div>
+      <FAQJsonLd
+        items={[
+          {
+            question: "Do I need to be in Nigeria at any point?",
+            answer:
+              "No. Our entire process is designed to be managed remotely. From consultation to handover, you can be anywhere in the world. We are your eyes and hands on the ground.",
+          },
+          {
+            question: "How do I know my money is being used correctly?",
+            answer:
+              "Every payment is tied to a completed milestone that is photographed and documented before the next payment is released. You can see the full financial breakdown in your dashboard at all times.",
+          },
+          {
+            question: "What if something goes wrong during the build?",
+            answer:
+              "Issues are a normal part of construction. What matters is how they are handled. We identify problems early, communicate them to you immediately, and propose solutions — all at no extra management cost.",
+          },
+          {
+            question: "How long does a typical project take?",
+            answer:
+              "A standard three-bedroom residential new build typically takes 9–14 months from ground-breaking to handover. Renovation projects vary widely depending on scope. We give you a detailed timeline in your project plan.",
+          },
+        ]}
+      />
       {/* Hero */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="max-w-3xl">

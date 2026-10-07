@@ -24,7 +24,7 @@ export function DashboardNav({ session }: { session: SessionUser }) {
       <header className="border-b border-[var(--pb-border)] bg-[var(--pb-surface)] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
         {/* Mobile logo */}
         <Link href="/dashboard" className="lg:hidden">
-          <ProxyBuildLogo size={26} wordmark />
+          <ProxyBuildLogo size={36} wordmark />
         </Link>
 
         {/* Right */}

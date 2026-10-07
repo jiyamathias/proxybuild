@@ -9,11 +9,31 @@ import {
   BarChart3,
   CheckCircle2,
 } from "lucide-react";
+import { ServiceJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title:
+    "Construction Services — New Builds, Renovations, Hotels & Commercial | ProxyBuild Africa",
   description:
-    "ProxyBuild Africa manages new builds, renovations, finishing works, site preparation and commercial projects for the African diaspora.",
+    "ProxyBuild Africa directly executes new residential builds, renovations, finishing works, hotels, hostels and commercial developments across Nigeria. Our team handles every phase — no outsourcing, no middlemen.",
+  keywords: [
+    "construction services Nigeria",
+    "build new house Nigeria",
+    "house renovation Nigeria",
+    "build hotel Nigeria",
+    "build hostel Nigeria",
+    "commercial construction Nigeria",
+    "finishing works Nigeria",
+    "ground-up construction Lagos",
+    "diaspora construction services",
+  ],
+  alternates: { canonical: "https://proxybuild.africa/services" },
+  openGraph: {
+    title: "Construction Services — ProxyBuild Africa",
+    description:
+      "New builds, renovations, hotels, commercial projects. ProxyBuild's team executes every stage directly in Nigeria for diaspora clients worldwide.",
+    url: "https://proxybuild.africa/services",
+  },
 };
 
 const services = [
@@ -21,10 +41,10 @@ const services = [
     icon: Building2,
     title: "New Build",
     tag: "Residential",
-    desc: "Full ground-up construction of residential properties — from land survey and design review through to final handover. We manage every trade, every supplier and every stage on your behalf.",
+    desc: "Full ground-up construction of residential properties — from land survey and design review through to final handover. Our team handles every stage directly: no middlemen, no handoffs.",
     features: [
       "Architectural and structural plan review",
-      "Contractor procurement and vetting",
+      "ProxyBuild site team assignment and briefing",
       "Stage-by-stage milestone management",
       "Daily photo and video updates",
       "Cost tracking and budget reporting",
@@ -40,7 +60,7 @@ const services = [
     features: [
       "Pre-renovation condition assessment",
       "Scope of works definition",
-      "Contractor selection and onboarding",
+      "ProxyBuild site team assignment",
       "Works scheduling and trade coordination",
       "Progress monitoring and sign-off",
       "Material sourcing and quality checks",
@@ -81,7 +101,7 @@ const services = [
     icon: ClipboardCheck,
     title: "Property Maintenance",
     tag: "Ongoing",
-    desc: "Keep your completed property in excellent condition even when you are abroad. We carry out scheduled inspections, maintenance visits and handle any emergency repairs through our verified tradespeople.",
+    desc: "Keep your completed property in excellent condition even when you are abroad. Our team carries out scheduled inspections, maintenance visits and handles any emergency repairs directly.",
     features: [
       "Periodic inspection visits (monthly or quarterly)",
       "Roof and drainage checks",
@@ -96,11 +116,11 @@ const services = [
     icon: BarChart3,
     title: "Commercial Projects",
     tag: "Commercial",
-    desc: "Office blocks, retail units, warehouses and mixed-use developments. We bring the same rigorous project management discipline to commercial construction as we do to every residential project.",
+    desc: "Office blocks, retail units, hotels, hostels, warehouses, schools and mixed-use developments. Whatever you are building, ProxyBuild's team executes it — the same rigour, the same direct accountability, regardless of scale.",
     features: [
       "Commercial design and planning support",
-      "Specialist contractor procurement",
-      "Multi-trade programme management",
+      "Hospitality builds — hotels, hostels, guest houses",
+      "Multi-trade programme management by our site team",
       "Regulatory compliance and approvals",
       "Cost management and value engineering",
       "Stakeholder reporting",
@@ -112,6 +132,11 @@ const services = [
 export default function ServicesPage() {
   return (
     <div>
+      <ServiceJsonLd
+        name="Construction Project Management — ProxyBuild Africa"
+        description="ProxyBuild Africa directly manages new residential builds, renovations, hotel construction, hostel builds, commercial developments and property maintenance across Nigeria for the African diaspora."
+        url="https://proxybuild.africa/services"
+      />
       {/* Hero */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="max-w-3xl">

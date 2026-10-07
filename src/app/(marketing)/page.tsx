@@ -1,5 +1,31 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title:
+    "ProxyBuild Africa — Build Your Home in Nigeria from Anywhere in the World",
+  description:
+    "ProxyBuild Africa is a construction execution company that directly manages your building project in Nigeria — new homes, renovations, hotels, commercial builds — while you stay in the UK, USA, Canada or anywhere abroad. Our team is on the ground, so you don't have to be.",
+  keywords: [
+    "build house Nigeria from UK",
+    "build house Nigeria from USA",
+    "construction company Nigeria diaspora",
+    "build property Nigeria from abroad",
+    "Nigerian construction management",
+    "diaspora house construction Nigeria",
+    "house building service Lagos",
+    "build hotel Nigeria",
+    "ProxyBuild Africa",
+  ],
+  alternates: { canonical: "https://proxybuild.africa" },
+  openGraph: {
+    title: "ProxyBuild Africa — Build Your Home in Nigeria from Anywhere",
+    description:
+      "Our own team manages your construction project in Nigeria from start to finish. New builds, renovations, hotels and commercial developments — handled directly by ProxyBuild, not outsourced.",
+    url: "https://proxybuild.africa",
+  },
+};
 import { DashboardPreview } from "@/components/marketing/dashboard-preview";
 import {
   ArrowRight,
@@ -75,7 +101,7 @@ const services = [
     icon: Building2,
     title: "Commercial Projects",
     description:
-      "Office buildings, retail spaces and mixed-use developments managed with full accountability.",
+      "Office blocks, retail units, hotels, hostels, warehouses and mixed-use developments — executed with full accountability by our own team.",
   },
   {
     icon: Wrench,

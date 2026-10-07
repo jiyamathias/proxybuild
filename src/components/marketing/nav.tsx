@@ -31,7 +31,7 @@ export function MarketingNav() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <ProxyBuildLogo size={30} wordmark />
+            <ProxyBuildLogo size={56} wordmark />
           </Link>
 
           {/* Desktop nav */}
