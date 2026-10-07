@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { CopyrightYear } from "@/components/shared/copyright-year";
+import { ProxyBuildLogo } from "@/components/ui/logo";
 
 export function MarketingFooter() {
   return (
@@ -9,10 +10,8 @@ export function MarketingFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <span className="text-[var(--pb-green)] font-bold text-xl tracking-tight">
-                Proxy<span className="text-white">Build</span>
-              </span>
+            <Link href="/" className="inline-block mb-4" style={{ fontSize: "16px" }}>
+              <ProxyBuildLogo size={32} wordmark />
             </Link>
             <p className="text-sm text-[var(--pb-text-muted)] leading-relaxed">
               We Build Your Vision — Even While You&apos;re Away.

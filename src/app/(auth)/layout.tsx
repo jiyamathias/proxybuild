@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Building2, ShieldCheck, BarChart3 } from "lucide-react";
 import { ProxyBuildLogo } from "@/components/ui/logo";
 import { CopyrightYear } from "@/components/shared/copyright-year";
@@ -37,7 +38,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {/* Logo */}
         <div className="relative z-10">
           <Link href="/" aria-label="Back to home">
-            <ProxyBuildLogo size={36} wordmark />
+            <Image
+              src="/logo-wordmark.png"
+              alt="ProxyBuild"
+              width={220}
+              height={73}
+              priority
+              className="w-48 h-auto"
+            />
           </Link>
         </div>
 
