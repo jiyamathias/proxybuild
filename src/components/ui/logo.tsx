@@ -9,7 +9,6 @@ interface LogoProps {
 export function ProxyBuildLogo({ className = "", wordmark = true, size = 32 }: LogoProps) {
   return (
     <span className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {/* PB monogram — faithful to brand: white P with roofline arrow, green B, house windows */}
       <svg
         width={size}
         height={size}
@@ -18,81 +17,52 @@ export function ProxyBuildLogo({ className = "", wordmark = true, size = 32 }: L
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Navy rounded square background */}
+        {/* Navy rounded background */}
         <rect width="40" height="40" rx="8" fill="#0B1220" />
 
-        {/* ── P shape ──────────────────────────────────────────
-            Vertical stem left side + angular bowl whose top-right
-            arm extends diagonally upper-right (construction roofline).
-        ─────────────────────────────────────────────────────── */}
+        {/* ── B drawn first (behind P) ─────────────────────────
+            Green stem + two filled D-bumps with navy counters.
+        ──────────────────────────────────────────────────────── */}
+
+        {/* B stem */}
+        <rect x="21" y="8" width="5" height="26" rx="2" fill="#16A34A" />
+
+        {/* B top bump — filled D-shape */}
+        <path d="M 26 8 Q 38 8 38 15 Q 38 22 26 22 L 26 8 Z" fill="#16A34A" />
+        {/* B top counter — navy cuts the hole inside */}
+        <path d="M 26 11 Q 33.5 11 33.5 15 Q 33.5 19 26 19 L 26 11 Z" fill="#0B1220" />
+
+        {/* B bottom bump — slightly larger */}
+        <path d="M 26 22 Q 39 22 39 28.5 Q 39 35 26 35 L 26 22 Z" fill="#16A34A" />
+        {/* B bottom counter */}
+        <path d="M 26 25 Q 34 25 34 28.5 Q 34 32 26 32 L 26 25 Z" fill="#0B1220" />
+
+        {/* ── P drawn second (in front of B) ───────────────────
+            White stem + filled D-bowl with navy counter.
+            Diagonal roofline arm extends upper-right from bowl top.
+        ──────────────────────────────────────────────────────── */}
 
         {/* P stem */}
-        <rect x="5" y="5" width="5" height="30" rx="2" fill="white" />
+        <rect x="3" y="5" width="7" height="30" rx="2" fill="white" />
 
-        {/* P bowl filled: right and bottom sides form a standard bowl,
-            but the top-right corner extends as a diagonal spike upper-right.
-            Path: bottom-left of bowl → across bottom → curve up right side →
-            top-right goes diagonally to apex → notch back → close. */}
-        <path
-          d="
-            M 10 20
-            L 18 20
-            Q 25 20 25 13
-            Q 25 7  18 7
-            L 10  7
-          "
-          stroke="white"
-          strokeWidth="5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
+        {/* P bowl — filled white D-shape */}
+        <path d="M 10 5 L 20 5 Q 29 5 29 13 Q 29 21 20 21 L 10 21 Z" fill="white" />
 
-        {/* Diagonal roofline arm extending from top of P bowl to upper-right */}
-        <path
-          d="M 20 7 L 31 2"
-          stroke="white"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
+        {/* P counter — navy cutout revealing the bowl hole */}
+        <path d="M 11 7.5 L 19 7.5 Q 22 7.5 22 13 Q 22 18.5 19 18.5 L 11 18.5 Z" fill="#0B1220" />
 
-        {/* Arrowhead notch at the tip */}
-        <path
-          d="M 26 2 L 31 2 L 31 7"
-          stroke="white"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
+        {/* 2×2 house windows — navy cutouts in the white stem */}
+        <rect x="4"   y="25"   width="2.5" height="2.5" rx="0.5" fill="#0B1220" />
+        <rect x="7.5" y="25"   width="2.5" height="2.5" rx="0.5" fill="#0B1220" />
+        <rect x="4"   y="28.5" width="2.5" height="2.5" rx="0.5" fill="#0B1220" />
+        <rect x="7.5" y="28.5" width="2.5" height="2.5" rx="0.5" fill="#0B1220" />
 
-        {/* ── 2×2 house windows at bottom of P ──────────────── */}
-        <rect x="5.5" y="27" width="4"   height="4"   rx="0.8" fill="#16A34A" />
-        <rect x="11"  y="27" width="4"   height="4"   rx="0.8" fill="#16A34A" />
-        <rect x="5.5" y="32.5" width="4" height="3.5" rx="0.8" fill="#16A34A" />
-        <rect x="11"  y="32.5" width="4" height="3.5" rx="0.8" fill="#16A34A" />
-
-        {/* ── B shape (green) ────────────────────────────────── */}
-        {/* B stem */}
-        <rect x="20" y="7" width="4" height="26" rx="2" fill="#16A34A" />
-
-        {/* B top bump */}
-        <path
-          d="M 24 7 Q 34 7 34 14 Q 34 20 24 20"
-          stroke="#16A34A"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-          fill="none"
-        />
-
-        {/* B bottom bump (slightly larger) */}
-        <path
-          d="M 24 20 Q 35 20 35 26.5 Q 35 33 24 33"
-          stroke="#16A34A"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-          fill="none"
-        />
+        {/* ── Roofline arm (on top of everything) ──────────────
+            Diagonal line from top-right of P bowl shooting upper-right.
+        ──────────────────────────────────────────────────────── */}
+        <path d="M 21 5 L 36 0" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
+        {/* Arrowhead notch at tip */}
+        <path d="M 31 0 L 36 0 L 36 5" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
       </svg>
 
       {wordmark && (

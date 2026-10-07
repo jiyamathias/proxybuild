@@ -2,31 +2,36 @@
   <!-- Navy rounded background -->
   <rect width="64" height="64" rx="13" fill="#0B1220"/>
 
-  <!-- P stem -->
-  <rect x="8" y="8" width="8" height="48" rx="3" fill="white"/>
-
-  <!-- P bowl -->
-  <path d="M16 8 L29 8 Q40 8 40 20 Q40 32 29 32 L16 32"
-        stroke="white" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-  <!-- P diagonal roofline arrow -->
-  <path d="M31 8 L50 3" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
-  <path d="M42 3 L50 3 L50 11" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-  <!-- 2x2 house window grid (green) -->
-  <rect x="9"  y="43" width="6" height="6" rx="1" fill="#16A34A"/>
-  <rect x="17" y="43" width="6" height="6" rx="1" fill="#16A34A"/>
-  <rect x="9"  y="51" width="6" height="5" rx="1" fill="#16A34A"/>
-  <rect x="17" y="51" width="6" height="5" rx="1" fill="#16A34A"/>
-
-  <!-- B stem -->
-  <rect x="31" y="11" width="7" height="42" rx="3" fill="#16A34A"/>
+  <!-- B stem (behind P) -->
+  <rect x="34" y="12" width="8" height="42" rx="3" fill="#16A34A"/>
 
   <!-- B top bump -->
-  <path d="M38 11 Q54 11 54 22 Q54 32 38 32"
-        stroke="#16A34A" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+  <path d="M 42 12 Q 61 12 61 24 Q 61 36 42 36 L 42 12 Z" fill="#16A34A"/>
+  <!-- B top counter -->
+  <path d="M 42 17 Q 54 17 54 24 Q 54 31 42 31 L 42 17 Z" fill="#0B1220"/>
 
-  <!-- B bottom bump -->
-  <path d="M38 32 Q56 32 56 43 Q56 53 38 53"
-        stroke="#16A34A" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+  <!-- B bottom bump (slightly larger) -->
+  <path d="M 42 36 Q 62 36 62 46 Q 62 56 42 56 L 42 36 Z" fill="#16A34A"/>
+  <!-- B bottom counter -->
+  <path d="M 42 40 Q 54 40 54 46 Q 54 51 42 51 L 42 40 Z" fill="#0B1220"/>
+
+  <!-- P stem -->
+  <rect x="5" y="8" width="11" height="48" rx="3" fill="white"/>
+
+  <!-- P bowl — filled white D-shape -->
+  <path d="M 16 8 L 32 8 Q 46 8 46 21 Q 46 34 32 34 L 16 34 Z" fill="white"/>
+
+  <!-- P counter — navy cutout -->
+  <path d="M 17.5 12 L 30 12 Q 35 12 35 21 Q 35 30 30 30 L 17.5 30 Z" fill="#0B1220"/>
+
+  <!-- 2x2 house windows (navy cutouts in white P stem) -->
+  <rect x="6.5"  y="40" width="4" height="4" rx="0.8" fill="#0B1220"/>
+  <rect x="12"   y="40" width="4" height="4" rx="0.8" fill="#0B1220"/>
+  <rect x="6.5"  y="46" width="4" height="4" rx="0.8" fill="#0B1220"/>
+  <rect x="12"   y="46" width="4" height="4" rx="0.8" fill="#0B1220"/>
+
+  <!-- Diagonal roofline arm -->
+  <path d="M 34 8 L 58 1" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <!-- Arrowhead notch -->
+  <path d="M 50 1 L 58 1 L 58 8" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>
