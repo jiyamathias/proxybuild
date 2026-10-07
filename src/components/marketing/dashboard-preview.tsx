@@ -60,7 +60,7 @@ export function DashboardPreview() {
             <span className="text-sm text-[var(--pb-text-muted)]">
               Overall Progress
             </span>
-            <span className="text-sm font-bold text-[var(--pb-orange)]">
+            <span className="text-sm font-bold text-[var(--pb-green)]">
               62%
             </span>
           </div>
@@ -87,7 +87,7 @@ export function DashboardPreview() {
             <p className="text-xs text-[var(--pb-text-subtle)] mb-1">
               Amount Paid
             </p>
-            <p className="text-base font-bold text-[var(--pb-orange)]">
+            <p className="text-base font-bold text-[var(--pb-green)]">
               ₦24,500,000
             </p>
           </div>
@@ -120,7 +120,7 @@ export function DashboardPreview() {
                 {m.status === "done" ? (
                   <CheckCircle2 className="h-4 w-4 text-[var(--pb-success)] shrink-0" />
                 ) : m.status === "current" ? (
-                  <Clock className="h-4 w-4 text-[var(--pb-orange)] shrink-0" />
+                  <Clock className="h-4 w-4 text-[var(--pb-green)] shrink-0" />
                 ) : (
                   <Circle className="h-4 w-4 text-[var(--pb-border)] shrink-0" />
                 )}

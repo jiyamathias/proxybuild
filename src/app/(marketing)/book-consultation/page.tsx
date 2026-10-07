@@ -12,7 +12,7 @@ export default function BookConsultationPage() {
     <div className="min-h-screen pt-24 pb-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-sm font-semibold text-[var(--pb-orange)] uppercase tracking-widest mb-3">
+          <p className="text-sm font-semibold text-[var(--pb-green)] uppercase tracking-widest mb-3">
             Free Consultation
           </p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">

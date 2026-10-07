@@ -78,7 +78,7 @@ export default async function AdminOverviewPage() {
       label: "Active Projects",
       value: activeProjectCount,
       href: "/admin/projects",
-      color: "text-[var(--pb-orange)]",
+      color: "text-[var(--pb-green)]",
     },
     {
       icon: AlertTriangle,
@@ -122,7 +122,7 @@ export default async function AdminOverviewPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (
           <Link key={stat.label} href={stat.href}>
-            <Card className="hover:border-[var(--pb-orange)]/30 transition-colors cursor-pointer">
+            <Card className="hover:border-[var(--pb-green)]/30 transition-colors cursor-pointer">
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
                   <stat.icon className={`h-5 w-5 ${stat.color}`} />
@@ -147,7 +147,7 @@ export default async function AdminOverviewPage() {
               <CardTitle className="text-base">Recent Projects</CardTitle>
               <Link
                 href="/admin/projects"
-                className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-orange)] transition-colors"
+                className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-green)] transition-colors"
               >
                 View all
               </Link>
@@ -167,7 +167,7 @@ export default async function AdminOverviewPage() {
                     className="block group"
                   >
                     <div className="flex items-center justify-between mb-1.5">
-                      <p className="text-sm font-medium text-white group-hover:text-[var(--pb-orange)] transition-colors truncate">
+                      <p className="text-sm font-medium text-white group-hover:text-[var(--pb-green)] transition-colors truncate">
                         {project.title}
                       </p>
                       <Badge
@@ -217,7 +217,7 @@ export default async function AdminOverviewPage() {
               </CardTitle>
               <Link
                 href="/admin/consultations"
-                className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-orange)] transition-colors"
+                className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-green)] transition-colors"
               >
                 View all
               </Link>
@@ -238,7 +238,7 @@ export default async function AdminOverviewPage() {
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <p className="text-sm font-medium text-white group-hover:text-[var(--pb-orange)] transition-colors">
+                        <p className="text-sm font-medium text-white group-hover:text-[var(--pb-green)] transition-colors">
                           {c.firstName} {c.lastName}
                         </p>
                         <p className="text-xs text-[var(--pb-text-muted)]">

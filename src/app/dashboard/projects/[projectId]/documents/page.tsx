@@ -109,7 +109,7 @@ export default async function DocumentsPage({
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-white truncate">
-                        {doc.name}
+                        {doc.title}
                       </p>
                       <p className="text-xs text-[var(--pb-text-subtle)] mt-0.5">
                         {uploaderName} · {formatDate(doc.createdAt)}

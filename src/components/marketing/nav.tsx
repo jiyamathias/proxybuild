@@ -30,7 +30,7 @@ export function MarketingNav() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-[var(--pb-orange)] font-bold text-xl tracking-tight">
+            <span className="text-[var(--pb-green)] font-bold text-xl tracking-tight">
               Proxy<span className="text-white">Build</span>
             </span>
           </Link>

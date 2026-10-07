@@ -53,14 +53,14 @@ export async function POST(req: NextRequest) {
       passwordHash: hashedPassword,
       role,
       isActive: true,
-      emailVerifiedAt: new Date(),
+      emailVerified: true,
     })
     .returning();
 
   await db.insert(profiles).values({
     userId: user.id,
     firstName,
-    lastName: lastName ?? null,
+    lastName: lastName ?? "",
   });
 
   // Send invite email

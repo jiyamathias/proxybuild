@@ -95,8 +95,8 @@ export default async function AdminTeamPage() {
                 key={user.id}
                 className="flex items-center gap-4 bg-[var(--pb-surface-elevated)] border border-[var(--pb-border-subtle)] rounded-xl p-4"
               >
-                <div className="h-10 w-10 rounded-full bg-[var(--pb-orange)]/20 flex items-center justify-center shrink-0">
-                  <span className="text-sm font-bold text-[var(--pb-orange)]">
+                <div className="h-10 w-10 rounded-full bg-[var(--pb-green)]/20 flex items-center justify-center shrink-0">
+                  <span className="text-sm font-bold text-[var(--pb-green)]">
                     {initials}
                   </span>
                 </div>

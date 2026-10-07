@@ -23,7 +23,7 @@ function statusIcon(status: string) {
     case "COMPLETED":
       return <CheckCircle2 className="h-5 w-5 text-[var(--pb-text-muted)] shrink-0" />;
     case "IN_PROGRESS":
-      return <Clock className="h-5 w-5 text-[var(--pb-orange)] shrink-0" />;
+      return <Clock className="h-5 w-5 text-[var(--pb-green)] shrink-0" />;
     case "ON_HOLD":
       return <AlertCircle className="h-5 w-5 text-yellow-500 shrink-0" />;
     case "CANCELLED":
@@ -81,7 +81,7 @@ export default async function MilestonesPage({
               {completedWeight}% of project weight delivered
             </p>
           </div>
-          <span className="text-2xl font-bold text-[var(--pb-orange)]">
+          <span className="text-2xl font-bold text-[var(--pb-green)]">
             {totalWeight > 0 ? Math.round((completedWeight / totalWeight) * 100) : 0}%
           </span>
         </div>
@@ -104,7 +104,7 @@ export default async function MilestonesPage({
               key={milestone.id}
               className={`border rounded-xl p-5 transition-colors ${
                 needsApproval
-                  ? "border-[var(--pb-orange)]/40 bg-[var(--pb-orange-muted)]"
+                  ? "border-[var(--pb-green)]/40 bg-[var(--pb-green-muted)]"
                   : active
                   ? "border-[var(--pb-border)] bg-[var(--pb-surface-elevated)]"
                   : "border-[var(--pb-border-subtle)] bg-[var(--pb-surface-elevated)]"
@@ -161,7 +161,7 @@ export default async function MilestonesPage({
                     )}
                   </div>
                   {needsApproval && (
-                    <div className="mt-4 pt-4 border-t border-[var(--pb-orange)]/20">
+                    <div className="mt-4 pt-4 border-t border-[var(--pb-green)]/20">
                       <p className="text-sm text-[var(--pb-text-muted)] mb-3">
                         This milestone is ready for your review and approval.
                       </p>

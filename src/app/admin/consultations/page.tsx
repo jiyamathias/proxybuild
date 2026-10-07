@@ -74,7 +74,7 @@ export default async function AdminConsultationsPage() {
                       {c.firstName} {c.lastName}
                     </p>
                     {c.status === "NEW" && (
-                      <span className="h-2 w-2 rounded-full bg-[var(--pb-orange)] shrink-0" />
+                      <span className="h-2 w-2 rounded-full bg-[var(--pb-green)] shrink-0" />
                     )}
                   </div>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5">

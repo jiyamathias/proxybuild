@@ -10,7 +10,7 @@ export function MarketingFooter() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4">
-              <span className="text-[var(--pb-orange)] font-bold text-xl tracking-tight">
+              <span className="text-[var(--pb-green)] font-bold text-xl tracking-tight">
                 Proxy<span className="text-white">Build</span>
               </span>
             </Link>
@@ -72,16 +72,16 @@ export function MarketingFooter() {
             <ul className="space-y-2.5">
               <li>
                 <a
-                  href={`mailto:${siteConfig.email.support}`}
+                  href={`mailto:${siteConfig.emails.support}`}
                   className="text-sm text-[var(--pb-text-muted)] hover:text-white transition-colors"
                 >
-                  {siteConfig.email.support}
+                  {siteConfig.emails.support}
                 </a>
               </li>
               <li>
                 <Link
                   href="/book-consultation"
-                  className="text-sm text-[var(--pb-orange)] hover:text-[var(--pb-orange-hover)] transition-colors font-medium"
+                  className="text-sm text-[var(--pb-green)] hover:text-[var(--pb-green-hover)] transition-colors font-medium"
                 >
                   Book a Free Consultation
                 </Link>

@@ -71,7 +71,7 @@ export default async function ProjectLayout({
         <div className="mb-5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-[var(--pb-text-muted)]">Overall Progress</span>
-            <span className="text-sm font-bold text-[var(--pb-orange)]">
+            <span className="text-sm font-bold text-[var(--pb-green)]">
               {project.progressPercent}%
             </span>
           </div>

@@ -170,7 +170,7 @@ export default async function AdminProjectFinancePage({
             <p className="text-sm font-semibold text-white">
               Payment Collection
             </p>
-            <span className="text-sm font-bold text-[var(--pb-orange)]">
+            <span className="text-sm font-bold text-[var(--pb-green)]">
               {Math.round(paidPercent)}%
             </span>
           </div>
@@ -189,7 +189,7 @@ export default async function AdminProjectFinancePage({
             {budgetItems.length > 0 && (
               <Link
                 href={`/admin/finance/${projectId}/budget`}
-                className="text-xs text-[var(--pb-orange)] hover:underline"
+                className="text-xs text-[var(--pb-green)] hover:underline"
               >
                 Edit budget →
               </Link>
@@ -254,7 +254,7 @@ export default async function AdminProjectFinancePage({
             </h2>
             <Link
               href={`/admin/finance/${projectId}/record-payment`}
-              className="text-xs text-[var(--pb-orange)] hover:underline"
+              className="text-xs text-[var(--pb-green)] hover:underline"
             >
               + Record
             </Link>
@@ -310,7 +310,7 @@ export default async function AdminProjectFinancePage({
           </h2>
           <Link
             href={`/admin/finance/${projectId}/add-expense`}
-            className="text-xs text-[var(--pb-orange)] hover:underline"
+            className="text-xs text-[var(--pb-green)] hover:underline"
           >
             + Log expense
           </Link>
@@ -405,7 +405,7 @@ export default async function AdminProjectFinancePage({
           </h2>
           <Link
             href={`/admin/finance/${projectId}/change-orders/new`}
-            className="text-xs text-[var(--pb-orange)] hover:underline"
+            className="text-xs text-[var(--pb-green)] hover:underline"
           >
             + New CO
           </Link>

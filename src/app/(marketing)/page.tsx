@@ -203,14 +203,14 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left — copy */}
             <div>
-              <div className="inline-flex items-center gap-2 border border-[var(--pb-orange)]/30 bg-[var(--pb-orange-muted)] rounded-full px-3 py-1 text-xs text-[var(--pb-orange)] font-medium mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--pb-orange)] animate-pulse" />
+              <div className="inline-flex items-center gap-2 border border-[var(--pb-green)]/30 bg-[var(--pb-green-muted)] rounded-full px-3 py-1 text-xs text-[var(--pb-green)] font-medium mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--pb-green)] animate-pulse" />
                 Technology-Enabled Construction Execution
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
                 We Build{" "}
-                <span className="text-[var(--pb-orange)]">Your Vision</span>
+                <span className="text-[var(--pb-green)]">Your Vision</span>
                 <br />
                 <span className="text-white">
                   Even While You&apos;re Away.
@@ -281,7 +281,7 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               Building Back Home{" "}
-              <span className="text-[var(--pb-orange)]">
+              <span className="text-[var(--pb-green)]">
                 Shouldn&apos;t Mean Losing Control.
               </span>
             </h2>
@@ -324,7 +324,7 @@ export default function HomePage() {
       <section className="py-24 border-t border-[var(--pb-border)]" id="how-it-works">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center mb-16">
-            <p className="text-sm font-semibold text-[var(--pb-orange)] uppercase tracking-widest mb-3">
+            <p className="text-sm font-semibold text-[var(--pb-green)] uppercase tracking-widest mb-3">
               The Process
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
@@ -342,7 +342,7 @@ export default function HomePage() {
                 key={step.number}
                 className="relative bg-[var(--pb-surface)] border border-[var(--pb-border)] rounded-xl p-6 group"
               >
-                <div className="text-5xl font-black text-[var(--pb-border)] mb-4 select-none group-hover:text-[var(--pb-orange)]/20 transition-colors">
+                <div className="text-5xl font-black text-[var(--pb-border)] mb-4 select-none group-hover:text-[var(--pb-green)]/20 transition-colors">
                   {step.number}
                 </div>
                 <h3 className="text-base font-bold text-white mb-2">
@@ -369,12 +369,12 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-sm font-semibold text-[var(--pb-orange)] uppercase tracking-widest mb-3">
+              <p className="text-sm font-semibold text-[var(--pb-green)] uppercase tracking-widest mb-3">
                 Client Dashboard
               </p>
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">
                 Track Your Building From{" "}
-                <span className="text-[var(--pb-orange)]">
+                <span className="text-[var(--pb-green)]">
                   Anywhere in the World.
                 </span>
               </h2>
@@ -393,7 +393,7 @@ export default function HomePage() {
                   "Change order review and approval",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3">
-                    <CheckCircle2 className="h-4 w-4 text-[var(--pb-orange)] shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-[var(--pb-green)] shrink-0" />
                     <span className="text-sm text-[var(--pb-text-muted)]">
                       {item}
                     </span>
@@ -428,7 +428,7 @@ export default function HomePage() {
       <section className="py-24 border-t border-[var(--pb-border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center mb-16">
-            <p className="text-sm font-semibold text-[var(--pb-orange)] uppercase tracking-widest mb-3">
+            <p className="text-sm font-semibold text-[var(--pb-green)] uppercase tracking-widest mb-3">
               What We Build
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">Services</h2>
@@ -440,10 +440,10 @@ export default function HomePage() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="group bg-[var(--pb-surface)] border border-[var(--pb-border)] hover:border-[var(--pb-orange)]/40 rounded-xl p-6 transition-colors"
+                className="group bg-[var(--pb-surface)] border border-[var(--pb-border)] hover:border-[var(--pb-green)]/40 rounded-xl p-6 transition-colors"
               >
-                <div className="h-10 w-10 rounded-lg bg-[var(--pb-orange-muted)] flex items-center justify-center mb-4 group-hover:bg-[var(--pb-orange)]/20 transition-colors">
-                  <service.icon className="h-5 w-5 text-[var(--pb-orange)]" />
+                <div className="h-10 w-10 rounded-lg bg-[var(--pb-green-muted)] flex items-center justify-center mb-4 group-hover:bg-[var(--pb-green)]/20 transition-colors">
+                  <service.icon className="h-5 w-5 text-[var(--pb-green)]" />
                 </div>
                 <h3 className="font-bold text-white mb-2">{service.title}</h3>
                 <p className="text-sm text-[var(--pb-text-muted)] leading-relaxed">
@@ -461,7 +461,7 @@ export default function HomePage() {
       <section className="py-24 border-t border-[var(--pb-border)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center mb-16">
-            <p className="text-sm font-semibold text-[var(--pb-orange)] uppercase tracking-widest mb-3">
+            <p className="text-sm font-semibold text-[var(--pb-green)] uppercase tracking-widest mb-3">
               Our Advantage
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
@@ -474,8 +474,8 @@ export default function HomePage() {
                 key={point.title}
                 className="bg-[var(--pb-surface)] border border-[var(--pb-border)] rounded-xl p-6"
               >
-                <div className="h-10 w-10 rounded-lg bg-[var(--pb-orange-muted)] flex items-center justify-center mb-4">
-                  <point.icon className="h-5 w-5 text-[var(--pb-orange)]" />
+                <div className="h-10 w-10 rounded-lg bg-[var(--pb-green-muted)] flex items-center justify-center mb-4">
+                  <point.icon className="h-5 w-5 text-[var(--pb-green)]" />
                 </div>
                 <h3 className="font-bold text-white mb-2">{point.title}</h3>
                 <p className="text-sm text-[var(--pb-text-muted)] leading-relaxed">
@@ -493,7 +493,7 @@ export default function HomePage() {
       <section className="py-24 border-t border-[var(--pb-border)]">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-[var(--pb-orange)] uppercase tracking-widest mb-3">
+            <p className="text-sm font-semibold text-[var(--pb-green)] uppercase tracking-widest mb-3">
               Common Questions
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold">FAQ</h2>
@@ -521,7 +521,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Your dream home{" "}
-            <span className="text-[var(--pb-orange)]">
+            <span className="text-[var(--pb-green)]">
               shouldn&apos;t wait for retirement.
             </span>
           </h2>

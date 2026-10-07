@@ -9,7 +9,7 @@ import { z } from "zod/v4";
 
 const schema = z.object({
   status: z
-    .enum(["NEW", "CONTACTED", "QUALIFIED", "PROPOSAL_SENT", "CONVERTED", "CLOSED"])
+    .enum(["NEW", "REVIEWING", "CONTACTED", "SCHEDULED", "COMPLETED", "REJECTED"])
     .optional(),
   internalNotes: z.string().max(5000).optional(),
 });

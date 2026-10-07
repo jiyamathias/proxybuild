@@ -20,7 +20,7 @@ function actionVariant(action: string): "success" | "warning" | "danger" | "seco
 function actionColor(action: string) {
   if (action.startsWith("user.")) return "text-blue-400";
   if (action.startsWith("project.")) return "text-purple-400";
-  if (action.startsWith("milestone.")) return "text-[var(--pb-orange)]";
+  if (action.startsWith("milestone.")) return "text-[var(--pb-green)]";
   if (action.startsWith("payment.")) return "text-[var(--pb-success)]";
   if (action.startsWith("document.")) return "text-yellow-400";
   if (action.startsWith("change_order.")) return "text-pink-400";
@@ -96,7 +96,7 @@ export default async function AuditLogsPage() {
                       </span>
                     )}
                   </div>
-                  {log.after && Object.keys(log.after as object).length > 0 && (
+                  {log.after != null && Object.keys(log.after as object).length > 0 && (
                     <p className="text-xs text-[var(--pb-text-subtle)] mt-0.5 font-mono truncate">
                       {JSON.stringify(log.after)}
                     </p>

@@ -59,7 +59,7 @@ export default async function ProjectOverviewPage({
         {activeMilestone && (
           <div className="bg-[var(--pb-surface-elevated)] rounded-xl p-4 border border-[var(--pb-border-subtle)]">
             <p className="text-xs text-[var(--pb-text-subtle)] mb-1">Current Phase</p>
-            <p className="text-sm font-bold text-[var(--pb-orange)]">
+            <p className="text-sm font-bold text-[var(--pb-green)]">
               {activeMilestone.title}
             </p>
           </div>
@@ -85,7 +85,7 @@ export default async function ProjectOverviewPage({
             <h2 className="text-base font-semibold text-white">Latest Update</h2>
             <Link
               href={`/dashboard/projects/${projectId}/updates`}
-              className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-orange)] flex items-center gap-1 transition-colors"
+              className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-green)] flex items-center gap-1 transition-colors"
             >
               All updates <ArrowRight className="h-3 w-3" />
             </Link>
@@ -119,7 +119,7 @@ export default async function ProjectOverviewPage({
           <h2 className="text-base font-semibold text-white">Project Timeline</h2>
           <Link
             href={`/dashboard/projects/${projectId}/milestones`}
-            className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-orange)] flex items-center gap-1 transition-colors"
+            className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-green)] flex items-center gap-1 transition-colors"
           >
             View details <ArrowRight className="h-3 w-3" />
           </Link>
@@ -135,7 +135,7 @@ export default async function ProjectOverviewPage({
                 key={milestone.id}
                 className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
                   active
-                    ? "bg-[var(--pb-orange-muted)] border border-[var(--pb-orange)]/20"
+                    ? "bg-[var(--pb-green-muted)] border border-[var(--pb-green)]/20"
                     : "bg-[var(--pb-surface-elevated)] border border-[var(--pb-border-subtle)]"
                 }`}
               >
@@ -143,7 +143,7 @@ export default async function ProjectOverviewPage({
                   {done ? (
                     <CheckCircle2 className="h-4 w-4 text-[var(--pb-success)]" />
                   ) : active ? (
-                    <Clock className="h-4 w-4 text-[var(--pb-orange)]" />
+                    <Clock className="h-4 w-4 text-[var(--pb-green)]" />
                   ) : (
                     <Circle className="h-4 w-4 text-[var(--pb-border)]" />
                   )}

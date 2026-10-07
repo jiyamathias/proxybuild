@@ -9,6 +9,7 @@ import {
   Bell,
   LogOut,
 } from "lucide-react";
+import { ProxyBuildLogo } from "@/components/ui/logo";
 import { cn, getInitials } from "@/lib/utils";
 import type { SessionUser } from "@/lib/auth/session";
 
@@ -25,11 +26,9 @@ export function DashboardSidebar({ session }: { session: SessionUser }) {
   return (
     <aside className="hidden lg:flex flex-col w-64 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] shrink-0">
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-[var(--pb-border)]">
+      <div className="px-5 py-4 border-b border-[var(--pb-border)]">
         <Link href="/dashboard">
-          <span className="text-[var(--pb-orange)] font-bold text-lg tracking-tight">
-            Proxy<span className="text-white">Build</span>
-          </span>
+          <ProxyBuildLogo size={28} className="text-sm font-semibold" />
         </Link>
       </div>
 
@@ -47,7 +46,7 @@ export function DashboardSidebar({ session }: { session: SessionUser }) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
                 active
-                  ? "bg-[var(--pb-orange-muted)] text-[var(--pb-orange)] font-medium"
+                  ? "bg-[var(--pb-green-muted)] text-[var(--pb-green)] font-medium"
                   : "text-[var(--pb-text-muted)] hover:text-white hover:bg-[var(--pb-surface-elevated)]"
               )}
             >
@@ -61,7 +60,7 @@ export function DashboardSidebar({ session }: { session: SessionUser }) {
       {/* User */}
       <div className="border-t border-[var(--pb-border)] p-3">
         <div className="flex items-center gap-3 px-2 py-2">
-          <div className="h-8 w-8 rounded-full bg-[var(--pb-orange-muted)] flex items-center justify-center text-xs font-bold text-[var(--pb-orange)] shrink-0">
+          <div className="h-8 w-8 rounded-full bg-[var(--pb-green-muted)] flex items-center justify-center text-xs font-bold text-[var(--pb-green)] shrink-0">
             {getInitials(session.firstName, session.lastName)}
           </div>
           <div className="flex-1 min-w-0">

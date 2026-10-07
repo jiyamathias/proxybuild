@@ -77,7 +77,7 @@ export default async function ClientDetailPage({
               <p className="text-xs text-[var(--pb-text-subtle)]">Email</p>
               <a
                 href={`mailto:${user.email}`}
-                className="text-sm text-[var(--pb-orange)] hover:underline"
+                className="text-sm text-[var(--pb-green)] hover:underline"
               >
                 {user.email}
               </a>
@@ -141,7 +141,7 @@ export default async function ClientDetailPage({
                         value={project.progressPercent}
                         className="h-1.5 w-16"
                       />
-                      <span className="text-xs text-[var(--pb-orange)] font-semibold">
+                      <span className="text-xs text-[var(--pb-green)] font-semibold">
                         {project.progressPercent}%
                       </span>
                     </div>

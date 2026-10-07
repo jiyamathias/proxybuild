@@ -30,7 +30,7 @@ function notifIcon(type: string) {
     case "DOCUMENT_ADDED":
       return <FileText className={`${cls} text-purple-400`} />;
     case "PROJECT_UPDATE":
-      return <Info className={`${cls} text-[var(--pb-orange)]`} />;
+      return <Info className={`${cls} text-[var(--pb-green)]`} />;
     case "ACTION_REQUIRED":
       return <AlertCircle className={`${cls} text-[var(--pb-danger)]`} />;
     default:
@@ -76,7 +76,7 @@ export default async function NotificationsPage() {
               key={notif.id}
               className={`flex gap-4 p-4 rounded-xl border transition-colors ${
                 !notif.isRead
-                  ? "bg-[var(--pb-orange-muted)] border-[var(--pb-orange)]/20"
+                  ? "bg-[var(--pb-green-muted)] border-[var(--pb-green)]/20"
                   : "bg-[var(--pb-surface-elevated)] border-[var(--pb-border-subtle)]"
               }`}
             >
@@ -89,7 +89,7 @@ export default async function NotificationsPage() {
                     {notif.title}
                   </p>
                   {!notif.isRead && (
-                    <span className="h-2 w-2 rounded-full bg-[var(--pb-orange)] shrink-0 mt-1.5" />
+                    <span className="h-2 w-2 rounded-full bg-[var(--pb-green)] shrink-0 mt-1.5" />
                   )}
                 </div>
                 {notif.body && (

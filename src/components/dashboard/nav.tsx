@@ -23,7 +23,7 @@ export function DashboardNav({ session }: { session: SessionUser }) {
       <header className="border-b border-[var(--pb-border)] bg-[var(--pb-surface)] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
         {/* Mobile logo */}
         <Link href="/dashboard" className="lg:hidden">
-          <span className="text-[var(--pb-orange)] font-bold text-lg tracking-tight">
+          <span className="text-[var(--pb-green)] font-bold text-lg tracking-tight">
             Proxy<span className="text-white">Build</span>
           </span>
         </Link>
@@ -36,7 +36,7 @@ export function DashboardNav({ session }: { session: SessionUser }) {
           >
             <Bell className="h-4 w-4" />
           </Link>
-          <div className="h-8 w-8 rounded-full bg-[var(--pb-orange-muted)] flex items-center justify-center text-xs font-bold text-[var(--pb-orange)] shrink-0">
+          <div className="h-8 w-8 rounded-full bg-[var(--pb-green-muted)] flex items-center justify-center text-xs font-bold text-[var(--pb-green)] shrink-0">
             {getInitials(session.firstName, session.lastName)}
           </div>
           {/* Mobile menu trigger */}
@@ -66,7 +66,7 @@ export function DashboardNav({ session }: { session: SessionUser }) {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
                     active
-                      ? "bg-[var(--pb-orange-muted)] text-[var(--pb-orange)] font-medium"
+                      ? "bg-[var(--pb-green-muted)] text-[var(--pb-green)] font-medium"
                       : "text-[var(--pb-text-muted)] hover:text-white hover:bg-[var(--pb-surface-elevated)]"
                   )}
                 >

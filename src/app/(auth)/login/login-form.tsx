@@ -30,7 +30,7 @@ export function LoginForm() {
           <Label htmlFor="password">Password</Label>
           <Link
             href="/forgot-password"
-            className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-orange)] transition-colors"
+            className="text-xs text-[var(--pb-text-muted)] hover:text-[var(--pb-green)] transition-colors"
           >
             Forgot password?
           </Link>
@@ -66,7 +66,7 @@ export function LoginForm() {
         Don&apos;t have an account?{" "}
         <Link
           href="/book-consultation"
-          className="text-[var(--pb-orange)] hover:underline"
+          className="text-[var(--pb-green)] hover:underline"
         >
           Book a consultation
         </Link>{" "}

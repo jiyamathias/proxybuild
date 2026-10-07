@@ -10,7 +10,6 @@ import { z } from "zod/v4";
 const schema = z.object({
   title: z.string().min(1).max(200),
   body: z.string().min(1),
-  phase: z.string().max(100).optional(),
   progressDelta: z.number().int().min(0).max(100).default(0),
   milestoneId: z.string().uuid().nullable().optional(),
   isClientVisible: z.boolean().default(true),
@@ -35,7 +34,7 @@ export async function POST(
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  const { title, body: updateBody, phase, progressDelta, milestoneId, isClientVisible, isPublished } = body.data;
+  const { title, body: updateBody, progressDelta, milestoneId, isClientVisible, isPublished } = body.data;
 
   const [update] = await db
     .insert(projectUpdates)
@@ -44,7 +43,6 @@ export async function POST(
       authorId: session.id,
       title,
       body: updateBody,
-      phase: phase ?? null,
       progressDelta: progressDelta ?? 0,
       milestoneId: milestoneId ?? null,
       isClientVisible,
@@ -65,7 +63,7 @@ export async function POST(
   if (isClientVisible && isPublished && project.clientId) {
     await db.insert(notifications).values({
       userId: project.clientId,
-      type: "PROJECT_UPDATE",
+      type: "NEW_UPDATE",
       title: `New update: ${title}`,
       body: `${project.title} has a new project update.`,
       projectId,

@@ -22,7 +22,6 @@ export function PostUpdateForm({ projectId, currentProgress, milestones }: Props
   const [fields, setFields] = useState({
     title: "",
     body: "",
-    phase: "",
     progressDelta: "0",
     milestoneId: "",
     isClientVisible: true,
@@ -53,7 +52,6 @@ export function PostUpdateForm({ projectId, currentProgress, milestones }: Props
         setFields({
           title: "",
           body: "",
-          phase: "",
           progressDelta: "0",
           milestoneId: "",
           isClientVisible: true,
@@ -96,30 +94,19 @@ export function PostUpdateForm({ projectId, currentProgress, milestones }: Props
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="phase">Phase / Stage</Label>
-          <Input
-            id="phase"
-            placeholder="e.g. Structural"
-            value={fields.phase}
-            onChange={(e) => set("phase", e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="progressDelta">Progress Increase (%)</Label>
-          <Input
-            id="progressDelta"
-            type="number"
-            min="0"
-            max={100 - currentProgress}
-            value={fields.progressDelta}
-            onChange={(e) => set("progressDelta", e.target.value)}
-          />
-          <p className="text-xs text-[var(--pb-text-subtle)] mt-0.5">
-            Current: {currentProgress}%
-          </p>
-        </div>
+      <div>
+        <Label htmlFor="progressDelta">Progress Increase (%)</Label>
+        <Input
+          id="progressDelta"
+          type="number"
+          min="0"
+          max={100 - currentProgress}
+          value={fields.progressDelta}
+          onChange={(e) => set("progressDelta", e.target.value)}
+        />
+        <p className="text-xs text-[var(--pb-text-subtle)] mt-0.5">
+          Current: {currentProgress}%
+        </p>
       </div>
 
       {milestones.length > 0 && (
@@ -129,7 +116,7 @@ export function PostUpdateForm({ projectId, currentProgress, milestones }: Props
             id="milestoneUpdate"
             value={fields.milestoneId}
             onChange={(e) => set("milestoneId", e.target.value)}
-            className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)]"
+            className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)]"
           >
             <option value="">— Not linked —</option>
             {milestones.map((m) => (
@@ -147,7 +134,7 @@ export function PostUpdateForm({ projectId, currentProgress, milestones }: Props
             type="checkbox"
             checked={fields.isClientVisible}
             onChange={(e) => set("isClientVisible", e.target.checked)}
-            className="accent-[var(--pb-orange)] h-4 w-4 rounded"
+            className="accent-[var(--pb-green)] h-4 w-4 rounded"
           />
           <span className="text-sm text-[var(--pb-text-muted)]">
             Visible to client
@@ -158,7 +145,7 @@ export function PostUpdateForm({ projectId, currentProgress, milestones }: Props
             type="checkbox"
             checked={fields.isPublished}
             onChange={(e) => set("isPublished", e.target.checked)}
-            className="accent-[var(--pb-orange)] h-4 w-4 rounded"
+            className="accent-[var(--pb-green)] h-4 w-4 rounded"
           />
           <span className="text-sm text-[var(--pb-text-muted)]">
             Publish now

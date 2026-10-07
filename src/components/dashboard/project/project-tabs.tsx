@@ -45,7 +45,7 @@ export function ProjectTabs({ projectId }: { projectId: string }) {
               className={cn(
                 "flex items-center gap-2 px-4 py-3 text-sm transition-colors border-b-2 whitespace-nowrap",
                 active
-                  ? "border-[var(--pb-orange)] text-white font-medium"
+                  ? "border-[var(--pb-green)] text-white font-medium"
                   : "border-transparent text-[var(--pb-text-muted)] hover:text-white hover:border-[var(--pb-border)]"
               )}
             >

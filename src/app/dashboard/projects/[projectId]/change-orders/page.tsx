@@ -55,7 +55,7 @@ export default async function ChangeOrdersPage({
   return (
     <div className="space-y-4">
       {pendingCount > 0 && (
-        <div className="bg-[var(--pb-orange-muted)] border border-[var(--pb-orange)]/20 rounded-xl p-4">
+        <div className="bg-[var(--pb-green-muted)] border border-[var(--pb-green)]/20 rounded-xl p-4">
           <p className="text-sm font-semibold text-white">
             {pendingCount} change order{pendingCount > 1 ? "s" : ""} awaiting your
             review
@@ -74,7 +74,7 @@ export default async function ChangeOrdersPage({
             key={co.id}
             className={`border rounded-xl p-5 ${
               needsApproval
-                ? "border-[var(--pb-orange)]/40 bg-[var(--pb-surface-elevated)]"
+                ? "border-[var(--pb-green)]/40 bg-[var(--pb-surface-elevated)]"
                 : "border-[var(--pb-border-subtle)] bg-[var(--pb-surface-elevated)]"
             }`}
           >
@@ -123,7 +123,7 @@ export default async function ChangeOrdersPage({
             </div>
 
             {needsApproval && (
-              <div className="pt-3 border-t border-[var(--pb-orange)]/20">
+              <div className="pt-3 border-t border-[var(--pb-green)]/20">
                 <ChangeOrderApproveButton
                   changeOrderId={co.id}
                   projectId={projectId}

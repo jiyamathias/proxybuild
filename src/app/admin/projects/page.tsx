@@ -110,7 +110,7 @@ export default async function AdminProjectsPage() {
                     <Link
                       key={project.id}
                       href={`/admin/projects/${project.id}`}
-                      className="block bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-xl p-5 hover:border-[var(--pb-orange)]/40 transition-colors"
+                      className="block bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-xl p-5 hover:border-[var(--pb-green)]/40 transition-colors"
                     >
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div>
@@ -139,7 +139,7 @@ export default async function AdminProjectsPage() {
                           value={project.progressPercent}
                           className="h-1.5 flex-1"
                         />
-                        <span className="text-xs font-semibold text-[var(--pb-orange)] shrink-0 w-10 text-right">
+                        <span className="text-xs font-semibold text-[var(--pb-green)] shrink-0 w-10 text-right">
                           {project.progressPercent}%
                         </span>
                       </div>

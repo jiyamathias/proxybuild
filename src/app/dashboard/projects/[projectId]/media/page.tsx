@@ -65,7 +65,7 @@ export default async function MediaPage({
                 href={url ?? "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative aspect-video rounded-xl overflow-hidden bg-[var(--pb-surface-elevated)] border border-[var(--pb-border-subtle)] hover:border-[var(--pb-orange)]/40 transition-colors"
+                className="group relative aspect-video rounded-xl overflow-hidden bg-[var(--pb-surface-elevated)] border border-[var(--pb-border-subtle)] hover:border-[var(--pb-green)]/40 transition-colors"
               >
                 {url ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
@@ -103,8 +103,8 @@ export default async function MediaPage({
                 className="bg-[var(--pb-surface-elevated)] border border-[var(--pb-border-subtle)] rounded-xl p-4"
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[var(--pb-orange)]/10 flex items-center justify-center shrink-0">
-                    <Video className="h-5 w-5 text-[var(--pb-orange)]" />
+                  <div className="h-10 w-10 rounded-lg bg-[var(--pb-green)]/10 flex items-center justify-center shrink-0">
+                    <Video className="h-5 w-5 text-[var(--pb-green)]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-white truncate">
@@ -119,7 +119,7 @@ export default async function MediaPage({
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-[var(--pb-orange)] hover:underline shrink-0"
+                      className="text-xs text-[var(--pb-green)] hover:underline shrink-0"
                     >
                       Watch
                     </a>

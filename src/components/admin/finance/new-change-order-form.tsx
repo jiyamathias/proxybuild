@@ -129,7 +129,7 @@ export function NewChangeOrderForm({ projectId, currency }: Props) {
           id="status"
           value={fields.status}
           onChange={(e) => set("status", e.target.value)}
-          className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)]"
+          className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)]"
         >
           <option value="DRAFT">Draft</option>
           <option value="SUBMITTED">Submitted (send to client)</option>

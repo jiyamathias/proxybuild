@@ -48,16 +48,17 @@ export async function POST(
       .set({
         approvalStatus: approved ? "APPROVED" : "REJECTED",
         status: approved ? "APPROVED" : "IN_PROGRESS",
-        actualEndDate: approved ? new Date().toISOString() : null,
+        actualEndDate: approved ? new Date() : null,
         updatedAt: new Date(),
       })
       .where(eq(milestones.id, milestoneId));
 
     await tx.insert(milestoneApprovals).values({
       milestoneId,
-      reviewerId: session.id,
+      projectId,
+      reviewedById: session.id,
       decision: approved ? "APPROVED" : "REJECTED",
-      notes: notes ?? null,
+      comment: notes ?? null,
     });
   });
 

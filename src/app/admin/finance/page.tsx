@@ -107,7 +107,7 @@ export default async function AdminFinancePage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <DollarSign className="h-4 w-4 text-[var(--pb-orange)]" />
+            <DollarSign className="h-4 w-4 text-[var(--pb-green)]" />
             <p className="text-xs text-[var(--pb-text-muted)]">Total Budget</p>
           </div>
           <p className="text-xl font-bold text-white">
@@ -153,7 +153,7 @@ export default async function AdminFinancePage() {
             <p className="text-sm font-semibold text-white">
               Overall Collection Rate
             </p>
-            <span className="text-sm font-bold text-[var(--pb-orange)]">
+            <span className="text-sm font-bold text-[var(--pb-green)]">
               {Math.round(overallPercent)}%
             </span>
           </div>

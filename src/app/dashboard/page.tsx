@@ -86,7 +86,7 @@ export default async function DashboardPage() {
         </div>
         {unreadCount > 0 && (
           <Link href="/dashboard/notifications">
-            <div className="flex items-center gap-2 bg-[var(--pb-orange-muted)] border border-[var(--pb-orange)]/30 text-[var(--pb-orange)] text-sm px-3 py-2 rounded-lg">
+            <div className="flex items-center gap-2 bg-[var(--pb-green-muted)] border border-[var(--pb-green)]/30 text-[var(--pb-green)] text-sm px-3 py-2 rounded-lg">
               <Bell className="h-4 w-4" />
               {unreadCount} new
             </div>
@@ -97,8 +97,8 @@ export default async function DashboardPage() {
       {/* No projects state */}
       {clientProjects.length === 0 && (
         <Card className="text-center p-12">
-          <div className="h-16 w-16 rounded-xl bg-[var(--pb-orange-muted)] flex items-center justify-center mx-auto mb-4">
-            <FolderOpen className="h-8 w-8 text-[var(--pb-orange)]" />
+          <div className="h-16 w-16 rounded-xl bg-[var(--pb-green-muted)] flex items-center justify-center mx-auto mb-4">
+            <FolderOpen className="h-8 w-8 text-[var(--pb-green)]" />
           </div>
           <h2 className="text-xl font-bold text-white mb-2">No projects yet</h2>
           <p className="text-[var(--pb-text-muted)] mb-6 max-w-sm mx-auto">
@@ -134,11 +134,11 @@ export default async function DashboardPage() {
                 href={`/dashboard/projects/${project.id}`}
                 className="block group"
               >
-                <Card className="hover:border-[var(--pb-orange)]/30 transition-colors cursor-pointer">
+                <Card className="hover:border-[var(--pb-green)]/30 transition-colors cursor-pointer">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div>
-                        <h3 className="text-base font-bold text-white group-hover:text-[var(--pb-orange)] transition-colors">
+                        <h3 className="text-base font-bold text-white group-hover:text-[var(--pb-green)] transition-colors">
                           {project.title}
                         </h3>
                         <p className="text-sm text-[var(--pb-text-muted)] mt-0.5">
@@ -157,7 +157,7 @@ export default async function DashboardPage() {
                         <span className="text-[var(--pb-text-muted)]">
                           Progress
                         </span>
-                        <span className="font-semibold text-[var(--pb-orange)]">
+                        <span className="font-semibold text-[var(--pb-green)]">
                           {project.progressPercent}%
                         </span>
                       </div>

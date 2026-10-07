@@ -15,7 +15,7 @@ export function AdminTopNav({ session }: { session: SessionUser }) {
       <header className="border-b border-[var(--pb-border)] bg-[var(--pb-surface)] px-4 sm:px-6 py-3 flex items-center gap-4 sticky top-0 z-30">
         {/* Mobile logo */}
         <Link href="/admin" className="lg:hidden">
-          <span className="text-[var(--pb-orange)] font-bold text-lg tracking-tight">
+          <span className="text-[var(--pb-green)] font-bold text-lg tracking-tight">
             Proxy<span className="text-white">Build</span>
           </span>
         </Link>
@@ -27,7 +27,7 @@ export function AdminTopNav({ session }: { session: SessionUser }) {
             <input
               type="search"
               placeholder="Search projects, clients…"
-              className="w-full h-9 bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-lg pl-9 pr-4 text-sm text-white placeholder:text-[var(--pb-text-subtle)] focus:outline-none focus:ring-1 focus:ring-[var(--pb-orange)] focus:border-[var(--pb-orange)]"
+              className="w-full h-9 bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-lg pl-9 pr-4 text-sm text-white placeholder:text-[var(--pb-text-subtle)] focus:outline-none focus:ring-1 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
             />
           </div>
         </div>

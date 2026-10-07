@@ -146,7 +146,7 @@ export function ConsultationForm() {
           <select
             id="preferredContact"
             {...register("preferredContact")}
-            className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)] focus:border-[var(--pb-orange)]"
+            className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
           >
             <option value="">Select…</option>
             <option value="email">Email</option>
@@ -190,7 +190,7 @@ export function ConsultationForm() {
           <select
             id="projectType"
             {...register("projectType")}
-            className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)] focus:border-[var(--pb-orange)]"
+            className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
           >
             <option value="">Select…</option>
             <option value="RESIDENTIAL_NEW_BUILD">Residential — New Build</option>
@@ -211,7 +211,7 @@ export function ConsultationForm() {
           <select
             id="landStatus"
             {...register("landStatus")}
-            className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)] focus:border-[var(--pb-orange)]"
+            className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
           >
             <option value="">Select…</option>
             <option value="OWNED_WITH_TITLE">Owned — with C of O / title</option>

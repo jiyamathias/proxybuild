@@ -127,7 +127,7 @@ export function InviteUserButton() {
                 id="role"
                 value={fields.role}
                 onChange={(e) => set("role", e.target.value)}
-                className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)]"
+                className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)]"
               >
                 {ROLES.map((r) => (
                   <option key={r.value} value={r.value}>

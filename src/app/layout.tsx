@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
+import { Poppins } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -65,7 +72,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${GeistMono.variable}`}>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );

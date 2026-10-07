@@ -100,7 +100,10 @@ export function MessageThread({
             senderFirstName || senderLastName
               ? `${senderFirstName ?? ""} ${senderLastName ?? ""}`.trim()
               : "Team";
-          const initials = getInitials(name);
+          const initials = getInitials(
+            senderFirstName ?? "T",
+            senderLastName ?? ""
+          );
           const isStaff =
             senderRole && senderRole !== "CLIENT";
 
@@ -113,7 +116,7 @@ export function MessageThread({
                 className={cn(
                   "h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0",
                   isMe
-                    ? "bg-[var(--pb-orange)]/20 text-[var(--pb-orange)]"
+                    ? "bg-[var(--pb-green)]/20 text-[var(--pb-green)]"
                     : isStaff
                     ? "bg-blue-500/20 text-blue-400"
                     : "bg-[var(--pb-surface)] text-[var(--pb-text-muted)]"
@@ -139,7 +142,7 @@ export function MessageThread({
                   className={cn(
                     "text-sm px-4 py-2.5 rounded-2xl leading-relaxed",
                     isMe
-                      ? "bg-[var(--pb-orange)] text-white rounded-tr-sm"
+                      ? "bg-[var(--pb-green)] text-white rounded-tr-sm"
                       : "bg-[var(--pb-surface-elevated)] text-[var(--pb-text-muted)] border border-[var(--pb-border-subtle)] rounded-tl-sm"
                   )}
                 >

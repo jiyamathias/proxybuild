@@ -11,7 +11,7 @@ export default function AuthLayout({
       {/* Minimal header */}
       <header className="border-b border-[var(--pb-border)] px-4 py-4">
         <Link href="/" className="inline-block">
-          <span className="text-[var(--pb-orange)] font-bold text-xl tracking-tight">
+          <span className="text-[var(--pb-green)] font-bold text-xl tracking-tight">
             Proxy<span className="text-white">Build</span>
           </span>
         </Link>

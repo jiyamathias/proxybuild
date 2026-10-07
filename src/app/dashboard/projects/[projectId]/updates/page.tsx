@@ -41,7 +41,8 @@ export default async function UpdatesPage({
           authorFirstName || authorLastName
             ? `${authorFirstName ?? ""} ${authorLastName ?? ""}`.trim()
             : "ProxyBuild Team";
-        const initials = getInitials(authorName);
+        const [first = "", last = ""] = authorName.split(" ");
+        const initials = getInitials(first, last);
 
         return (
           <article
@@ -54,9 +55,6 @@ export default async function UpdatesPage({
                 {update.progressDelta > 0 && (
                   <Badge variant="success">+{update.progressDelta}%</Badge>
                 )}
-                {update.phase && (
-                  <Badge variant="secondary">{update.phase}</Badge>
-                )}
               </div>
             </div>
 
@@ -65,8 +63,8 @@ export default async function UpdatesPage({
             </p>
 
             <div className="flex items-center gap-3 pt-3 border-t border-[var(--pb-border-subtle)]">
-              <div className="h-7 w-7 rounded-full bg-[var(--pb-orange)]/20 flex items-center justify-center shrink-0">
-                <span className="text-xs font-semibold text-[var(--pb-orange)]">
+              <div className="h-7 w-7 rounded-full bg-[var(--pb-green)]/20 flex items-center justify-center shrink-0">
+                <span className="text-xs font-semibold text-[var(--pb-green)]">
                   {initials}
                 </span>
               </div>

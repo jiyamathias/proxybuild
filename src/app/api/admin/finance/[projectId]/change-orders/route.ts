@@ -55,7 +55,7 @@ export async function POST(
   if (status === "SUBMITTED" && project.clientId) {
     await db.insert(notifications).values({
       userId: project.clientId,
-      type: "ACTION_REQUIRED",
+      type: "CHANGE_ORDER_SUBMITTED",
       title: "Change Order Requires Your Approval",
       body: `A change order "${title}" has been submitted for your review on ${project.title}.`,
       projectId,

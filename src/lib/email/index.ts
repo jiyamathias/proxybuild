@@ -33,7 +33,7 @@ export async function sendConsultationConfirmation(params: {
     "We've received your consultation request — ProxyBuild",
     `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0A0A0A;color:#fff;padding:32px;border-radius:8px;">
-      <div style="color:#E85A13;font-size:22px;font-weight:700;margin-bottom:8px;">ProxyBuild</div>
+      <div style="color:#16A34A;font-size:22px;font-weight:700;margin-bottom:8px;">ProxyBuild</div>
       <h1 style="font-size:24px;margin-bottom:16px;">Thank you, ${params.firstName}</h1>
       <p style="color:#A3A3A3;line-height:1.6;">
         We've received your consultation request for your project in <strong style="color:#fff">${params.projectLocation}</strong>.
@@ -44,7 +44,7 @@ export async function sendConsultationConfirmation(params: {
       <div style="background:#171717;border-radius:6px;padding:16px;margin:24px 0;">
         <p style="color:#A3A3A3;font-size:14px;margin:0;">
           In the meantime, if you have questions you can reach us at
-          <a href="mailto:hello@proxybuild.com" style="color:#E85A13;">hello@proxybuild.com</a>
+          <a href="mailto:hello@proxybuild.com" style="color:#16A34A;">hello@proxybuild.com</a>
         </p>
       </div>
       <p style="color:#A3A3A3;font-size:13px;margin-top:32px;">
@@ -83,7 +83,7 @@ export async function sendConsultationAdminNotification(params: {
         <tr><td style="padding:8px 0;color:#666;">Description</td><td>${params.description}</td></tr>
       </table>
       <p style="margin-top:16px;">
-        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/consultations/${params.consultationId}" style="background:#E85A13;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;display:inline-block;">
+        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/consultations/${params.consultationId}" style="background:#16A34A;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;display:inline-block;">
           View in Admin
         </a>
       </p>
@@ -103,12 +103,12 @@ export async function sendAccountInvitation(params: {
     "You've been invited to ProxyBuild",
     `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0A0A0A;color:#fff;padding:32px;border-radius:8px;">
-      <div style="color:#E85A13;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
+      <div style="color:#16A34A;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
       <h1 style="font-size:24px;margin-bottom:16px;">You've been invited, ${params.firstName}</h1>
       <p style="color:#A3A3A3;line-height:1.6;">
         You've been invited to access the ProxyBuild platform as a <strong style="color:#fff">${params.role}</strong>.
       </p>
-      <a href="${params.inviteUrl}" style="display:inline-block;background:#E85A13;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:24px 0;">
+      <a href="${params.inviteUrl}" style="display:inline-block;background:#16A34A;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:24px 0;">
         Accept Invitation
       </a>
       <p style="color:#A3A3A3;font-size:13px;">This link expires in 48 hours.</p>
@@ -127,12 +127,12 @@ export async function sendPasswordReset(params: {
     "Reset your ProxyBuild password",
     `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0A0A0A;color:#fff;padding:32px;border-radius:8px;">
-      <div style="color:#E85A13;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
+      <div style="color:#16A34A;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
       <h1 style="font-size:24px;margin-bottom:16px;">Reset your password</h1>
       <p style="color:#A3A3A3;line-height:1.6;">
         Hi ${params.firstName}, we received a request to reset your password.
       </p>
-      <a href="${params.resetUrl}" style="display:inline-block;background:#E85A13;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:24px 0;">
+      <a href="${params.resetUrl}" style="display:inline-block;background:#16A34A;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:24px 0;">
         Reset Password
       </a>
       <p style="color:#A3A3A3;font-size:13px;">This link expires in 1 hour. If you did not request this, please ignore this email.</p>
@@ -153,13 +153,13 @@ export async function sendMilestoneApprovalRequest(params: {
     `Milestone ready for your approval — ${params.projectTitle}`,
     `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0A0A0A;color:#fff;padding:32px;border-radius:8px;">
-      <div style="color:#E85A13;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
+      <div style="color:#16A34A;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
       <h1 style="font-size:24px;margin-bottom:16px;">Milestone ready for review</h1>
       <p style="color:#A3A3A3;line-height:1.6;">
         Hi ${params.firstName}, the milestone <strong style="color:#fff">${params.milestoneTitle}</strong> on your project
         <strong style="color:#fff">${params.projectTitle}</strong> is ready for your review and approval.
       </p>
-      <a href="${params.milestoneUrl}" style="display:inline-block;background:#E85A13;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:24px 0;">
+      <a href="${params.milestoneUrl}" style="display:inline-block;background:#16A34A;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:24px 0;">
         Review Milestone
       </a>
     </div>

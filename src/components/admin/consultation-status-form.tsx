@@ -60,8 +60,8 @@ export function ConsultationStatusForm({
               onClick={() => setStatus(s.value)}
               className={`text-sm px-3 py-1.5 rounded-lg border transition-colors ${
                 status === s.value
-                  ? "bg-[var(--pb-orange)] border-[var(--pb-orange)] text-white"
-                  : "bg-transparent border-[var(--pb-border)] text-[var(--pb-text-muted)] hover:border-[var(--pb-orange)]/40 hover:text-white"
+                  ? "bg-[var(--pb-green)] border-[var(--pb-green)] text-white"
+                  : "bg-transparent border-[var(--pb-border)] text-[var(--pb-text-muted)] hover:border-[var(--pb-green)]/40 hover:text-white"
               }`}
             >
               {s.label}

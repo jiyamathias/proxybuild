@@ -13,9 +13,11 @@ import {
   ClipboardList,
   Settings,
   Activity,
+  BarChart3,
   LogOut,
 } from "lucide-react";
 import { cn, getInitials } from "@/lib/utils";
+import { ProxyBuildLogo } from "@/components/ui/logo";
 import type { SessionUser } from "@/lib/auth/session";
 
 const navItems = [
@@ -25,8 +27,8 @@ const navItems = [
   { icon: UserCog, label: "Team", href: "/admin/team" },
   { icon: ClipboardList, label: "Consultations", href: "/admin/consultations" },
   { icon: DollarSign, label: "Finance", href: "/admin/finance" },
-  { icon: FileText, label: "Documents", href: "/admin/documents" },
   { icon: MessageSquare, label: "Messages", href: "/admin/messages" },
+  { icon: BarChart3, label: "Analytics", href: "/admin/analytics" },
   { icon: Activity, label: "Audit Logs", href: "/admin/audit-logs" },
   { icon: Settings, label: "Settings", href: "/admin/settings" },
 ];
@@ -37,13 +39,11 @@ export function AdminSidebar({ session }: { session: SessionUser }) {
   return (
     <aside className="hidden lg:flex flex-col w-64 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] shrink-0">
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-[var(--pb-border)] flex items-center justify-between">
+      <div className="px-5 py-4 border-b border-[var(--pb-border)] flex items-center justify-between">
         <Link href="/admin">
-          <span className="text-[var(--pb-orange)] font-bold text-lg tracking-tight">
-            Proxy<span className="text-white">Build</span>
-          </span>
+          <ProxyBuildLogo size={28} className="text-sm font-semibold" />
         </Link>
-        <span className="text-[10px] font-medium bg-[var(--pb-orange-muted)] text-[var(--pb-orange)] px-1.5 py-0.5 rounded">
+        <span className="text-[10px] font-medium bg-[var(--pb-green-muted)] text-[var(--pb-green)] px-1.5 py-0.5 rounded">
           Admin
         </span>
       </div>
@@ -62,7 +62,7 @@ export function AdminSidebar({ session }: { session: SessionUser }) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
                 active
-                  ? "bg-[var(--pb-orange-muted)] text-[var(--pb-orange)] font-medium"
+                  ? "bg-[var(--pb-green-muted)] text-[var(--pb-green)] font-medium"
                   : "text-[var(--pb-text-muted)] hover:text-white hover:bg-[var(--pb-surface-elevated)]"
               )}
             >

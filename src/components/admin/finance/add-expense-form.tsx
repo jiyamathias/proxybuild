@@ -107,7 +107,7 @@ export function AddExpenseForm({ projectId, currency, milestones }: Props) {
           id="entryType"
           value={fields.entryType}
           onChange={(e) => set("entryType", e.target.value)}
-          className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)]"
+          className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)]"
         >
           {EXPENSE_TYPES.map((t) => (
             <option key={t.value} value={t.value}>
@@ -135,7 +135,7 @@ export function AddExpenseForm({ projectId, currency, milestones }: Props) {
             id="milestone"
             value={fields.milestoneId}
             onChange={(e) => set("milestoneId", e.target.value)}
-            className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-orange)]"
+            className="w-full h-9 rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface)] text-white text-sm px-3 focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)]"
           >
             <option value="">— Not linked —</option>
             {milestones.map((m) => (

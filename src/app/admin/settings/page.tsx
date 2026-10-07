@@ -70,7 +70,7 @@ export default async function AdminSettingsPage() {
             <p className="text-xs text-[var(--pb-text-subtle)]">Support</p>
             <a
               href={`mailto:${siteConfig.emails.support}`}
-              className="text-[var(--pb-orange)] hover:underline"
+              className="text-[var(--pb-green)] hover:underline"
             >
               {siteConfig.emails.support}
             </a>

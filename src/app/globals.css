@@ -4,24 +4,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* ProxyBuild Brand */
-  --pb-orange: #e85a13;
-  --pb-orange-hover: #ff6a1a;
-  --pb-orange-muted: rgba(232, 90, 19, 0.12);
+  /* ProxyBuild Brand — Navy #0B1220 · Green #16A34A */
+  --pb-green: #16a34a;
+  --pb-green-hover: #15803d;
+  --pb-green-muted: rgba(22, 163, 74, 0.12);
+  --pb-navy: #0b1220;
 
-  /* Dark surface scale */
-  --pb-bg: #050505;
-  --pb-bg-near-black: #0a0a0a;
-  --pb-surface: #111111;
-  --pb-surface-elevated: #171717;
-  --pb-surface-raised: #1e1e1e;
-  --pb-border: #292929;
-  --pb-border-subtle: #1e1e1e;
+  /* Dark surface scale (navy-tinted) */
+  --pb-bg: #060c16;
+  --pb-bg-near-black: #070e1a;
+  --pb-surface: #0c1525;
+  --pb-surface-elevated: #111d30;
+  --pb-surface-raised: #162540;
+  --pb-border: #1d2f4a;
+  --pb-border-subtle: #162540;
 
   /* Text */
-  --pb-text: #ffffff;
-  --pb-text-muted: #a3a3a3;
-  --pb-text-subtle: #6b6b6b;
+  --pb-text: #f8fafc;
+  --pb-text-muted: #94a3b8;
+  --pb-text-subtle: #64748b;
 
   /* Semantic */
   --pb-success: #22c55e;
@@ -39,19 +40,19 @@
   --card-foreground: var(--pb-text);
   --popover: var(--pb-surface-elevated);
   --popover-foreground: var(--pb-text);
-  --primary: var(--pb-orange);
+  --primary: var(--pb-green);
   --primary-foreground: #ffffff;
   --secondary: var(--pb-surface-elevated);
   --secondary-foreground: var(--pb-text);
   --muted: var(--pb-surface);
   --muted-foreground: var(--pb-text-muted);
-  --accent: var(--pb-orange-muted);
-  --accent-foreground: var(--pb-orange);
+  --accent: var(--pb-green-muted);
+  --accent-foreground: var(--pb-green);
   --destructive: var(--pb-danger);
   --destructive-foreground: #ffffff;
   --border: var(--pb-border);
   --input: var(--pb-surface-elevated);
-  --ring: var(--pb-orange);
+  --ring: var(--pb-green);
 }
 
 * {
@@ -66,7 +67,7 @@ html {
 body {
   background: var(--pb-bg);
   color: var(--pb-text);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -89,12 +90,12 @@ body {
 
 /* Focus ring */
 :focus-visible {
-  outline: 2px solid var(--pb-orange);
+  outline: 2px solid var(--pb-green);
   outline-offset: 2px;
 }
 
 /* Selection */
 ::selection {
-  background: var(--pb-orange-muted);
-  color: var(--pb-orange);
+  background: var(--pb-green-muted);
+  color: var(--pb-green);
 }

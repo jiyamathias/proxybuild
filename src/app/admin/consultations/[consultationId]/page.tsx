@@ -111,7 +111,7 @@ export default async function ConsultationDetailPage({
               <p className="text-xs text-[var(--pb-text-subtle)]">Email</p>
               <a
                 href={`mailto:${consultation.email}`}
-                className="text-sm text-[var(--pb-orange)] hover:underline"
+                className="text-sm text-[var(--pb-green)] hover:underline"
               >
                 {consultation.email}
               </a>

@@ -127,7 +127,7 @@ export default async function AdminProjectDetailPage({
       <div className="bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-xl p-5">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-white">Overall Progress</span>
-          <span className="text-sm font-bold text-[var(--pb-orange)]">
+          <span className="text-sm font-bold text-[var(--pb-green)]">
             {project.progressPercent}%
           </span>
         </div>
@@ -190,7 +190,7 @@ export default async function AdminProjectDetailPage({
                   {done ? (
                     <CheckCircle2 className="h-4 w-4 text-[var(--pb-success)] shrink-0" />
                   ) : active ? (
-                    <Clock className="h-4 w-4 text-[var(--pb-orange)] shrink-0" />
+                    <Clock className="h-4 w-4 text-[var(--pb-green)] shrink-0" />
                   ) : (
                     <Circle className="h-4 w-4 text-[var(--pb-border)] shrink-0" />
                   )}
@@ -248,8 +248,8 @@ export default async function AdminProjectDetailPage({
                   .toUpperCase();
                 return (
                   <div key={m.userId} className="flex items-center gap-3">
-                    <div className="h-7 w-7 rounded-full bg-[var(--pb-orange)]/20 flex items-center justify-center shrink-0">
-                      <span className="text-xs font-semibold text-[var(--pb-orange)]">
+                    <div className="h-7 w-7 rounded-full bg-[var(--pb-green)]/20 flex items-center justify-center shrink-0">
+                      <span className="text-xs font-semibold text-[var(--pb-green)]">
                         {initials}
                       </span>
                     </div>
@@ -291,7 +291,7 @@ export default async function AdminProjectDetailPage({
           <div className="mt-3 pt-3 border-t border-[var(--pb-border-subtle)]">
             <Link
               href={`/admin/projects/${projectId}/updates`}
-              className="text-xs text-[var(--pb-orange)] hover:underline"
+              className="text-xs text-[var(--pb-green)] hover:underline"
             >
               Post update →
             </Link>
@@ -312,7 +312,7 @@ export default async function AdminProjectDetailPage({
                 <div key={doc.id} className="flex items-center gap-2">
                   <FileText className="h-3.5 w-3.5 text-[var(--pb-text-subtle)] shrink-0" />
                   <span className="text-sm text-[var(--pb-text-muted)] truncate flex-1">
-                    {doc.name}
+                    {doc.title}
                   </span>
                   <span className="text-xs text-[var(--pb-text-subtle)] shrink-0">
                     {doc.category}
@@ -365,7 +365,7 @@ export default async function AdminProjectDetailPage({
         <div className="mt-3 pt-3 border-t border-[var(--pb-border-subtle)]">
           <Link
             href={`/admin/projects/${projectId}/messages`}
-            className="text-xs text-[var(--pb-orange)] hover:underline"
+            className="text-xs text-[var(--pb-green)] hover:underline"
           >
             Open full thread →
           </Link>
