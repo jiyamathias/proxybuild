@@ -4,11 +4,11 @@ export const siteConfig = {
   tagline: "We Build Your Vision — Even While You're Away.",
   description:
     "ProxyBuild helps Africans living abroad build, renovate and manage property back home with managed construction teams, structured milestones and full digital transparency.",
-  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.com",
+  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.africa",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "+234",
   emails: {
-    support: "hello@proxybuild.com",
-    info: "info@proxybuild.com",
+    support: "hello@proxybuild.africa",
+    info: "info@proxybuild.africa",
   },
   social: {
     instagram: "https://instagram.com/proxybuild",

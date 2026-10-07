@@ -37,7 +37,7 @@ export function AdminSidebar({ session }: { session: SessionUser }) {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] shrink-0">
+    <aside className="flex flex-col w-64 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] shrink-0 h-full">
       {/* Logo */}
       <div className="px-5 py-4 border-b border-[var(--pb-border)] flex items-center justify-between">
         <Link href="/admin">

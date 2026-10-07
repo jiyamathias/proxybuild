@@ -33,7 +33,7 @@ export function DashboardPreview() {
           <div className="w-3 h-3 rounded-full bg-green-500/60" />
         </div>
         <span className="text-xs text-[var(--pb-text-subtle)] ml-2">
-          proxybuild.com/dashboard/projects/lekki-residence
+          proxybuild.africa/dashboard/projects/lekki-residence
         </span>
       </div>
 

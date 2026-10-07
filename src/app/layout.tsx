@@ -12,7 +12,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.com"
+    process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.africa"
   ),
   title: {
     default: "ProxyBuild — We Build Your Vision, Even While You're Away",

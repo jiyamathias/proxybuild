@@ -219,6 +219,20 @@ export default async function AdminProjectDetailPage({
               </p>
             )}
           </div>
+          <div className="mt-3 pt-3 border-t border-[var(--pb-border-subtle)] flex gap-4">
+            <Link
+              href={`/admin/projects/${projectId}/milestones`}
+              className="text-xs text-[var(--pb-green)] hover:underline"
+            >
+              Manage milestones →
+            </Link>
+            <Link
+              href={`/admin/projects/${projectId}/media`}
+              className="text-xs text-[var(--pb-text-muted)] hover:text-white hover:underline"
+            >
+              Media gallery →
+            </Link>
+          </div>
         </section>
 
         {/* Team members */}
@@ -321,6 +335,14 @@ export default async function AdminProjectDetailPage({
               ))}
             </div>
           )}
+          <div className="mt-3 pt-3 border-t border-[var(--pb-border-subtle)]">
+            <Link
+              href={`/admin/projects/${projectId}/documents`}
+              className="text-xs text-[var(--pb-green)] hover:underline"
+            >
+              Manage documents →
+            </Link>
+          </div>
         </section>
       </div>
 

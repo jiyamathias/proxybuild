@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
   });
 
   // Send invite email
-  const loginUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.com"}/login?email=${encodeURIComponent(email)}`;
+  const loginUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.africa"}/login?email=${encodeURIComponent(email)}`;
   Promise.allSettled([
     sendAccountInvitation({
       to: email,

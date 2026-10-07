@@ -4,8 +4,8 @@ function getResend() {
   return new Resend(process.env.RESEND_API_KEY ?? "placeholder");
 }
 
-const FROM = process.env.RESEND_FROM_EMAIL ?? "ProxyBuild <noreply@proxybuild.com>";
-const ADMIN_EMAIL = process.env.RESEND_ADMIN_EMAIL ?? "admin@proxybuild.com";
+const FROM = process.env.RESEND_FROM_EMAIL ?? "ProxyBuild <noreply@proxybuild.africa>";
+const ADMIN_EMAIL = process.env.RESEND_ADMIN_EMAIL ?? "admin@proxybuild.africa";
 
 type EmailResult = { success: boolean; error?: string };
 
@@ -44,7 +44,7 @@ export async function sendConsultationConfirmation(params: {
       <div style="background:#171717;border-radius:6px;padding:16px;margin:24px 0;">
         <p style="color:#A3A3A3;font-size:14px;margin:0;">
           In the meantime, if you have questions you can reach us at
-          <a href="mailto:hello@proxybuild.com" style="color:#16A34A;">hello@proxybuild.com</a>
+          <a href="mailto:hello@proxybuild.africa" style="color:#16A34A;">hello@proxybuild.africa</a>
         </p>
       </div>
       <p style="color:#A3A3A3;font-size:13px;margin-top:32px;">

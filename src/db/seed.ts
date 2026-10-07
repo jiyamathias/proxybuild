@@ -2,8 +2,8 @@
  * Development seed data — never run in production.
  *
  * Creates:
- *   - 1 SUPER_ADMIN user (admin@proxybuild.com / Admin123!)
- *   - 1 PROJECT_MANAGER  (pm@proxybuild.com / Admin123!)
+ *   - 1 SUPER_ADMIN user (admin@proxybuild.africa / Admin123!)
+ *   - 1 PROJECT_MANAGER  (pm@proxybuild.africa / Admin123!)
  *   - 1 CLIENT           (john@example.com  / Client123!)
  *   - 1 project          Lekki Residence
  *   - 9 milestones
@@ -38,7 +38,7 @@ async function seed() {
   const [superAdmin] = await db
     .insert(schema.users)
     .values({
-      email: "admin@proxybuild.com",
+      email: "admin@proxybuild.africa",
       passwordHash: adminHash,
       role: "SUPER_ADMIN",
       emailVerified: true,
@@ -50,7 +50,7 @@ async function seed() {
   const [pm] = await db
     .insert(schema.users)
     .values({
-      email: "pm@proxybuild.com",
+      email: "pm@proxybuild.africa",
       passwordHash: adminHash,
       role: "PROJECT_MANAGER",
       emailVerified: true,
@@ -665,8 +665,8 @@ async function seed() {
 
   console.log("✅  Demo consultation created");
   console.log("\n🎉  Seed complete!\n");
-  console.log("   Admin:   admin@proxybuild.com  / Admin123!");
-  console.log("   PM:      pm@proxybuild.com     / Admin123!");
+  console.log("   Admin:   admin@proxybuild.africa  / Admin123!");
+  console.log("   PM:      pm@proxybuild.africa     / Admin123!");
   console.log("   Client:  john@example.com      / Client123!\n");
 }
 
