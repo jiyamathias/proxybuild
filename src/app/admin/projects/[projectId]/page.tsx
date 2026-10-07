@@ -80,9 +80,9 @@ export default async function AdminProjectDetailPage({
 
   const location = [project.area, project.city, project.state].filter(Boolean).join(", ");
   const confirmedPaid = payments
-    .filter((p) => p.status === "CONFIRMED")
+    .filter((p) => p.status === "SUCCESSFUL")
     .reduce((s, p) => s + Number(p.amount), 0);
-  const budgetTotal = budget ? Number(budget.totalBudget) : Number(project.budgetAmount ?? 0);
+  const budgetTotal = budget ? Number(budget.totalAmount) : Number(project.budgetAmount ?? 0);
   const completedMilestones = milestones.filter(
     (m) => m.status === "APPROVED" || m.status === "COMPLETED"
   ).length;

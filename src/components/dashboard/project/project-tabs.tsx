@@ -11,6 +11,7 @@ import {
   DollarSign,
   MessageSquare,
   TrendingUp,
+  ClipboardList,
 } from "lucide-react";
 
 const tabs = [
@@ -20,6 +21,7 @@ const tabs = [
   { label: "Media", href: "/media", icon: Image },
   { label: "Documents", href: "/documents", icon: FileText },
   { label: "Payments", href: "/payments", icon: DollarSign },
+  { label: "Changes", href: "/change-orders", icon: ClipboardList },
   { label: "Messages", href: "/messages", icon: MessageSquare },
 ];
 

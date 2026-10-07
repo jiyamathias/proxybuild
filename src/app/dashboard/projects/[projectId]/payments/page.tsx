@@ -14,19 +14,23 @@ import { DollarSign, CheckCircle2, Clock, XCircle } from "lucide-react";
 
 function paymentStatusBadge(status: string) {
   const map: Record<string, { variant: "success" | "warning" | "danger" | "secondary"; label: string }> = {
-    CONFIRMED: { variant: "success", label: "Confirmed" },
+    SUCCESSFUL: { variant: "success", label: "Successful" },
     PENDING: { variant: "warning", label: "Pending" },
+    PROCESSING: { variant: "warning", label: "Processing" },
     FAILED: { variant: "danger", label: "Failed" },
     REFUNDED: { variant: "secondary", label: "Refunded" },
+    PARTIALLY_REFUNDED: { variant: "secondary", label: "Partial Refund" },
+    CANCELLED: { variant: "secondary", label: "Cancelled" },
   };
   return map[status] ?? { variant: "secondary", label: status };
 }
 
 function paymentStatusIcon(status: string) {
   switch (status) {
-    case "CONFIRMED":
+    case "SUCCESSFUL":
       return <CheckCircle2 className="h-4 w-4 text-[var(--pb-success)]" />;
     case "PENDING":
+    case "PROCESSING":
       return <Clock className="h-4 w-4 text-yellow-500" />;
     case "FAILED":
       return <XCircle className="h-4 w-4 text-[var(--pb-danger)]" />;
@@ -52,14 +56,14 @@ export default async function PaymentsPage({
   if (!project) notFound();
 
   const currency = project.currency ?? "NGN";
-  const confirmedTotal = payments
-    .filter((p) => p.status === "CONFIRMED")
+  const successfulTotal = payments
+    .filter((p) => p.status === "SUCCESSFUL")
     .reduce((sum, p) => sum + Number(p.amount), 0);
   const budgetAmount = budget
-    ? Number(budget.totalBudget)
+    ? Number(budget.totalAmount)
     : Number(project.budgetAmount ?? 0);
-  const paidPercent = budgetAmount > 0 ? (confirmedTotal / budgetAmount) * 100 : 0;
-  const remaining = budgetAmount - confirmedTotal;
+  const paidPercent = budgetAmount > 0 ? (successfulTotal / budgetAmount) * 100 : 0;
+  const remaining = budgetAmount - successfulTotal;
 
   return (
     <div className="space-y-6">
@@ -79,7 +83,7 @@ export default async function PaymentsPage({
             <div>
               <p className="text-xs text-[var(--pb-text-subtle)]">Paid</p>
               <p className="text-base font-bold text-[var(--pb-success)]">
-                {formatCurrency(confirmedTotal, currency)}
+                {formatCurrency(successfulTotal, currency)}
               </p>
             </div>
             <div>
@@ -127,10 +131,10 @@ export default async function PaymentsPage({
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-white">
-                      {payment.description ?? payment.paymentType.replace(/_/g, " ")}
+                      {payment.description ?? "Payment"}
                     </p>
                     <p className="text-xs text-[var(--pb-text-subtle)] mt-0.5">
-                      {payment.paymentMethod?.replace(/_/g, " ") ?? "—"} ·{" "}
+                      {payment.provider ?? "—"} ·{" "}
                       {formatDate(payment.paidAt ?? payment.createdAt)}
                     </p>
                   </div>
