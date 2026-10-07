@@ -2,15 +2,30 @@ import Image from "next/image";
 
 interface LogoProps {
   className?: string;
-  /** Show the wordmark text beside the icon */
+  /** true = full wordmark image; false = icon only */
   wordmark?: boolean;
-  /** Icon height in px (icon is square, wordmark auto-scales) */
+  /** Height in px — controls icon size (icon only) or wordmark height */
   size?: number;
 }
 
 export function ProxyBuildLogo({ className = "", wordmark = true, size = 32 }: LogoProps) {
+  if (wordmark) {
+    return (
+      <span className={`inline-flex items-center select-none ${className}`}>
+        <Image
+          src="/logo-wordmark.png"
+          alt="ProxyBuild"
+          width={1566}
+          height={522}
+          style={{ height: size, width: "auto" }}
+          priority
+        />
+      </span>
+    );
+  }
+
   return (
-    <span className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+    <span className={`inline-flex items-center select-none ${className}`}>
       <Image
         src="/logo-icon.png"
         alt="ProxyBuild"
@@ -19,12 +34,6 @@ export function ProxyBuildLogo({ className = "", wordmark = true, size = 32 }: L
         className="shrink-0"
         priority
       />
-      {wordmark && (
-        <span className="font-bold text-[length:inherit] leading-none tracking-tight">
-          <span className="text-white">Proxy</span>
-          <span className="text-[var(--pb-green)]">Build</span>
-        </span>
-      )}
     </span>
   );
 }
