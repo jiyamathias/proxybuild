@@ -232,15 +232,16 @@ export function DashboardPreview() {
                 </div>
                 <div className="mt-3 pt-2 border-t border-[var(--pb-border)]">
                   <div className="flex gap-1.5">
-                    <button className="flex-1 flex items-center justify-center gap-1 text-[9px] text-[var(--pb-text-muted)] bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded py-1.5">
-                      <TrendingUp className="h-2.5 w-2.5" /> Updates
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-1 text-[9px] text-[var(--pb-text-muted)] bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded py-1.5">
-                      <FileText className="h-2.5 w-2.5" /> Documents
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-1 text-[9px] text-[var(--pb-text-muted)] bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded py-1.5">
-                      <MessageSquare className="h-2.5 w-2.5" /> Messages
-                    </button>
+                    {[
+                      { icon: TrendingUp, label: "Updates" },
+                      { icon: FileText, label: "Docs" },
+                      { icon: MessageSquare, label: "Messages" },
+                    ].map(({ icon: Icon, label }) => (
+                      <button key={label} className="flex-1 flex items-center justify-center gap-1 text-[9px] text-[var(--pb-text-muted)] bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded py-1.5 truncate">
+                        <Icon className="h-2.5 w-2.5 shrink-0" />
+                        <span className="truncate">{label}</span>
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>

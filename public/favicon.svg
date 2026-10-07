@@ -1,10 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <!-- Navy background -->
-  <rect width="64" height="64" rx="12" fill="#0B1220"/>
-  <!-- P letter: navy fill, white stroke -->
-  <text x="8" y="44" font-family="Arial, sans-serif" font-weight="900" font-size="36" fill="white">P</text>
-  <!-- B letter: green -->
-  <text x="34" y="44" font-family="Arial, sans-serif" font-weight="900" font-size="36" fill="#16A34A">B</text>
-  <!-- Green dot accent top-right -->
-  <circle cx="56" cy="10" r="5" fill="#16A34A"/>
+  <!-- Navy rounded background -->
+  <rect width="64" height="64" rx="13" fill="#0B1220"/>
+
+  <!-- P stem -->
+  <rect x="8" y="8" width="8" height="48" rx="3" fill="white"/>
+
+  <!-- P bowl -->
+  <path d="M16 8 L29 8 Q40 8 40 20 Q40 32 29 32 L16 32"
+        stroke="white" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- P diagonal roofline arrow -->
+  <path d="M31 8 L50 3" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M42 3 L50 3 L50 11" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- 2x2 house window grid (green) -->
+  <rect x="9"  y="43" width="6" height="6" rx="1" fill="#16A34A"/>
+  <rect x="17" y="43" width="6" height="6" rx="1" fill="#16A34A"/>
+  <rect x="9"  y="51" width="6" height="5" rx="1" fill="#16A34A"/>
+  <rect x="17" y="51" width="6" height="5" rx="1" fill="#16A34A"/>
+
+  <!-- B stem -->
+  <rect x="31" y="11" width="7" height="42" rx="3" fill="#16A34A"/>
+
+  <!-- B top bump -->
+  <path d="M38 11 Q54 11 54 22 Q54 32 38 32"
+        stroke="#16A34A" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+
+  <!-- B bottom bump -->
+  <path d="M38 32 Q56 32 56 43 Q56 53 38 53"
+        stroke="#16A34A" stroke-width="7.5" stroke-linecap="round" fill="none"/>
 </svg>

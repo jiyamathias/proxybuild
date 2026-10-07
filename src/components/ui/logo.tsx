@@ -9,7 +9,7 @@ interface LogoProps {
 export function ProxyBuildLogo({ className = "", wordmark = true, size = 32 }: LogoProps) {
   return (
     <span className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {/* PB house monogram */}
+      {/* PB monogram — faithful to brand: white P with roofline arrow, green B, house windows */}
       <svg
         width={size}
         height={size}
@@ -18,63 +18,85 @@ export function ProxyBuildLogo({ className = "", wordmark = true, size = 32 }: L
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Rounded square bg */}
-        <rect width="40" height="40" rx="9" fill="#0B1220" />
+        {/* Navy rounded square background */}
+        <rect width="40" height="40" rx="8" fill="#0B1220" />
+
+        {/* ── P shape ──────────────────────────────────────────
+            Vertical stem left side + angular bowl whose top-right
+            arm extends diagonally upper-right (construction roofline).
+        ─────────────────────────────────────────────────────── */}
 
         {/* P stem */}
-        <rect x="9" y="10" width="4" height="20" rx="1.5" fill="white" />
+        <rect x="5" y="5" width="5" height="30" rx="2" fill="white" />
 
-        {/* P bowl — arrow pointing up-right */}
+        {/* P bowl filled: right and bottom sides form a standard bowl,
+            but the top-right corner extends as a diagonal spike upper-right.
+            Path: bottom-left of bowl → across bottom → curve up right side →
+            top-right goes diagonally to apex → notch back → close. */}
         <path
-          d="M13 10 L24 10 L24 18 L13 18"
+          d="
+            M 10 20
+            L 18 20
+            Q 25 20 25 13
+            Q 25 7  18 7
+            L 10  7
+          "
+          stroke="white"
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+
+        {/* Diagonal roofline arm extending from top of P bowl to upper-right */}
+        <path
+          d="M 20 7 L 31 2"
+          stroke="white"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+
+        {/* Arrowhead notch at the tip */}
+        <path
+          d="M 26 2 L 31 2 L 31 7"
           stroke="white"
           strokeWidth="3.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
         />
-        {/* Arrow on P (construction diagonal) */}
-        <path
-          d="M20 10 L28 10 L28 6"
-          stroke="white"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <path
-          d="M24 6 L28 6 L28 10"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
 
-        {/* B shape (right side, green accent) */}
-        <rect x="19" y="14" width="3.5" height="16" rx="1.5" fill="#16A34A" />
+        {/* ── 2×2 house windows at bottom of P ──────────────── */}
+        <rect x="5.5" y="27" width="4"   height="4"   rx="0.8" fill="#16A34A" />
+        <rect x="11"  y="27" width="4"   height="4"   rx="0.8" fill="#16A34A" />
+        <rect x="5.5" y="32.5" width="4" height="3.5" rx="0.8" fill="#16A34A" />
+        <rect x="11"  y="32.5" width="4" height="3.5" rx="0.8" fill="#16A34A" />
+
+        {/* ── B shape (green) ────────────────────────────────── */}
+        {/* B stem */}
+        <rect x="20" y="7" width="4" height="26" rx="2" fill="#16A34A" />
+
+        {/* B top bump */}
         <path
-          d="M22.5 14 C28 14 30 16 30 18.5 C30 21 28 22 22.5 22"
+          d="M 24 7 Q 34 7 34 14 Q 34 20 24 20"
           stroke="#16A34A"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          fill="none"
-        />
-        <path
-          d="M22.5 22 C29 22 31 24.5 31 27 C31 29.5 29 30 22.5 30"
-          stroke="#16A34A"
-          strokeWidth="3.5"
+          strokeWidth="4.5"
           strokeLinecap="round"
           fill="none"
         />
 
-        {/* House windows (bottom of B) */}
-        <rect x="23" y="25" width="3" height="3" rx="0.5" fill="#0B1220" />
-        <rect x="27" y="25" width="3" height="3" rx="0.5" fill="#0B1220" />
+        {/* B bottom bump (slightly larger) */}
+        <path
+          d="M 24 20 Q 35 20 35 26.5 Q 35 33 24 33"
+          stroke="#16A34A"
+          strokeWidth="4.5"
+          strokeLinecap="round"
+          fill="none"
+        />
       </svg>
 
       {wordmark && (
-        <span className="font-semibold text-[length:inherit] leading-none tracking-tight">
+        <span className="font-bold text-[length:inherit] leading-none tracking-tight">
           <span className="text-white">Proxy</span>
           <span className="text-[var(--pb-green)]">Build</span>
         </span>
