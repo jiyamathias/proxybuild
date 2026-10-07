@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ProxyBuild Brand */
+  --pb-orange: #e85a13;
+  --pb-orange-hover: #ff6a1a;
+  --pb-orange-muted: rgba(232, 90, 19, 0.12);
+
+  /* Dark surface scale */
+  --pb-bg: #050505;
+  --pb-bg-near-black: #0a0a0a;
+  --pb-surface: #111111;
+  --pb-surface-elevated: #171717;
+  --pb-surface-raised: #1e1e1e;
+  --pb-border: #292929;
+  --pb-border-subtle: #1e1e1e;
+
+  /* Text */
+  --pb-text: #ffffff;
+  --pb-text-muted: #a3a3a3;
+  --pb-text-subtle: #6b6b6b;
+
+  /* Semantic */
+  --pb-success: #22c55e;
+  --pb-warning: #f59e0b;
+  --pb-danger: #ef4444;
+  --pb-info: #3b82f6;
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Tailwind / shadcn compat tokens */
+  --background: var(--pb-bg);
+  --foreground: var(--pb-text);
+  --card: var(--pb-surface);
+  --card-foreground: var(--pb-text);
+  --popover: var(--pb-surface-elevated);
+  --popover-foreground: var(--pb-text);
+  --primary: var(--pb-orange);
+  --primary-foreground: #ffffff;
+  --secondary: var(--pb-surface-elevated);
+  --secondary-foreground: var(--pb-text);
+  --muted: var(--pb-surface);
+  --muted-foreground: var(--pb-text-muted);
+  --accent: var(--pb-orange-muted);
+  --accent-foreground: var(--pb-orange);
+  --destructive: var(--pb-danger);
+  --destructive-foreground: #ffffff;
+  --border: var(--pb-border);
+  --input: var(--pb-surface-elevated);
+  --ring: var(--pb-orange);
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--pb-border);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--pb-bg);
+  color: var(--pb-text);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--pb-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--pb-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pb-text-subtle);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--pb-orange);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--pb-orange-muted);
+  color: var(--pb-orange);
+}
