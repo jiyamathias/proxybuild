@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Navy background -->
+  <rect width="64" height="64" rx="12" fill="#0B1220"/>
+  <!-- P letter: navy fill, white stroke -->
+  <text x="8" y="44" font-family="Arial, sans-serif" font-weight="900" font-size="36" fill="white">P</text>
+  <!-- B letter: green -->
+  <text x="34" y="44" font-family="Arial, sans-serif" font-weight="900" font-size="36" fill="#16A34A">B</text>
+  <!-- Green dot accent top-right -->
+  <circle cx="56" cy="10" r="5" fill="#16A34A"/>
+</svg>

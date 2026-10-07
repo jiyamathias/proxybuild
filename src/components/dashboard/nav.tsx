@@ -6,6 +6,7 @@ import { Bell, Menu, LayoutDashboard, FolderOpen, Settings } from "lucide-react"
 import { cn, getInitials } from "@/lib/utils";
 import type { SessionUser } from "@/lib/auth/session";
 import { useState } from "react";
+import { ProxyBuildLogo } from "@/components/ui/logo";
 
 export function DashboardNav({ session }: { session: SessionUser }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -23,9 +24,7 @@ export function DashboardNav({ session }: { session: SessionUser }) {
       <header className="border-b border-[var(--pb-border)] bg-[var(--pb-surface)] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
         {/* Mobile logo */}
         <Link href="/dashboard" className="lg:hidden">
-          <span className="text-[var(--pb-green)] font-bold text-lg tracking-tight">
-            Proxy<span className="text-white">Build</span>
-          </span>
+          <ProxyBuildLogo size={26} wordmark />
         </Link>
 
         {/* Right */}

@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.africa"
   ),
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/favicon.svg",
+  },
   title: {
     default: "ProxyBuild — We Build Your Vision, Even While You're Away",
     template: "%s | ProxyBuild",

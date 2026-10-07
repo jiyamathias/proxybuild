@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import { ProxyBuildLogo } from "@/components/ui/logo";
 
 export function MarketingNav() {
   const [open, setOpen] = useState(false);
@@ -29,10 +30,8 @@ export function MarketingNav() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-[var(--pb-green)] font-bold text-xl tracking-tight">
-              Proxy<span className="text-white">Build</span>
-            </span>
+          <Link href="/" className="flex items-center shrink-0">
+            <ProxyBuildLogo size={30} wordmark />
           </Link>
 
           {/* Desktop nav */}

@@ -195,7 +195,7 @@ export default function HomePage() {
           aria-hidden="true"
           style={{
             background:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,90,19,0.08) 0%, transparent 70%)",
+              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(22,163,74,0.07) 0%, transparent 70%)",
           }}
         />
 
@@ -258,13 +258,13 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right — dashboard preview */}
+            {/* Right — desktop dashboard preview */}
             <div className="relative">
               <div
-                className="absolute -inset-4 rounded-3xl pointer-events-none"
+                className="absolute -inset-8 rounded-3xl pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, rgba(232,90,19,0.12) 0%, transparent 70%)",
+                    "radial-gradient(ellipse at center, rgba(22,163,74,0.1) 0%, transparent 70%)",
                 }}
               />
               <DashboardPreview />
@@ -413,7 +413,7 @@ export default function HomePage() {
                 className="absolute -inset-8 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, rgba(232,90,19,0.1) 0%, transparent 70%)",
+                    "radial-gradient(ellipse at center, rgba(22,163,74,0.1) 0%, transparent 70%)",
                 }}
               />
               <DashboardPreview />
