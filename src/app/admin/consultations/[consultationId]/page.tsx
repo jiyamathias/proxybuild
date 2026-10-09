@@ -22,20 +22,20 @@ import { ConsultationStatusForm } from "@/components/admin/consultation-status-f
 
 const statusVariant: Record<string, "success" | "warning" | "danger" | "secondary" | "default"> = {
   NEW: "warning",
+  REVIEWING: "default",
   CONTACTED: "default",
-  QUALIFIED: "success",
-  PROPOSAL_SENT: "default",
-  CONVERTED: "success",
-  CLOSED: "secondary",
+  SCHEDULED: "default",
+  COMPLETED: "success",
+  REJECTED: "secondary",
 };
 
 const statusLabel: Record<string, string> = {
   NEW: "New",
+  REVIEWING: "Under Review",
   CONTACTED: "Contacted",
-  QUALIFIED: "Qualified",
-  PROPOSAL_SENT: "Proposal Sent",
-  CONVERTED: "Converted",
-  CLOSED: "Closed",
+  SCHEDULED: "Meeting Scheduled",
+  COMPLETED: "Converted to Client",
+  REJECTED: "Closed",
 };
 
 function Field({ label, value }: { label: string; value?: string | null }) {
@@ -207,6 +207,9 @@ export default async function ConsultationDetailPage({
           consultationId={consultationId}
           currentStatus={consultation.status}
           currentNotes={consultation.internalNotes ?? ""}
+          consultationEmail={consultation.email}
+          consultationFirstName={consultation.firstName}
+          consultationLastName={consultation.lastName}
         />
       </div>
     </div>
