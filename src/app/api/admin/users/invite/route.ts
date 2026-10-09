@@ -54,6 +54,7 @@ export async function POST(req: NextRequest) {
       role,
       isActive: true,
       emailVerified: true,
+      mustChangePassword: true,
     })
     .returning();
 

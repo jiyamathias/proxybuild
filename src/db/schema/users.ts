@@ -30,6 +30,7 @@ export const users = pgTable(
     passwordResetToken: text("password_reset_token"),
     passwordResetExpiry: timestamp("password_reset_expiry"),
     isActive: boolean("is_active").notNull().default(true),
+    mustChangePassword: boolean("must_change_password").notNull().default(false),
     invitedBy: uuid("invited_by"),
     lastLoginAt: timestamp("last_login_at"),
     createdAt: timestamp("created_at").notNull().defaultNow(),

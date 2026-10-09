@@ -48,6 +48,7 @@ export async function loginAction(
       passwordHash: users.passwordHash,
       isActive: users.isActive,
       role: users.role,
+      mustChangePassword: users.mustChangePassword,
     })
     .from(users)
     .where(eq(users.email, email.toLowerCase()))
@@ -82,6 +83,11 @@ export async function loginAction(
     entityType: "user",
     entityId: user.id,
   });
+
+  // Force password change for invited users
+  if (user.mustChangePassword) {
+    redirect("/change-password");
+  }
 
   // Redirect based on role
   if (user.role === "CLIENT") {

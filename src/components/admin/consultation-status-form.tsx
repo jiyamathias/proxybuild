@@ -103,7 +103,7 @@ export function ConsultationStatusForm({
 
   const showConvertButton =
     !converted &&
-    (status === "CONTACTED" || status === "SCHEDULED" || status === "COMPLETED") &&
+    status === "COMPLETED" &&
     currentStatus !== "COMPLETED";
 
   return (

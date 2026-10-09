@@ -38,6 +38,11 @@ export function MessageThread({
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  // Mark messages from the other party as read when thread opens
+  useEffect(() => {
+    fetch(`/api/projects/${projectId}/messages/read`, { method: "PATCH" }).catch(() => {});
+  }, [projectId]);
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
