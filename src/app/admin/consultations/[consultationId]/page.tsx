@@ -71,7 +71,7 @@ export default async function ConsultationDetailPage({
   const sl = statusLabel[consultation.status] ?? consultation.status;
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6">
       {/* Breadcrumb + title */}
       <div>
         <div className="flex items-center gap-2 mb-2 text-sm">

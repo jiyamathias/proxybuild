@@ -21,7 +21,7 @@ export default async function AdminSettingsPage() {
     .limit(1);
 
   return (
-    <div className="max-w-2xl space-y-8">
+    <div className="max-w-3xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
           <Settings className="h-6 w-6 text-[var(--pb-text-muted)]" />

@@ -28,7 +28,7 @@ export default async function AdminProjectUpdatesPage({
   if (!project) notFound();
 
   return (
-    <div className="max-w-3xl space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       <div>
         <div className="flex items-center gap-2 mb-1 text-sm">
           <Link

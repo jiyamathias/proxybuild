@@ -17,7 +17,8 @@
  *   - 1 consultation
  */
 
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "./schema/index.js";
@@ -32,8 +33,8 @@ async function seed() {
   // ─────────────────────────────────────────────
   // USERS
   // ─────────────────────────────────────────────
-  const adminHash = await hashPassword("Admin123!");
-  const clientHash = await hashPassword("Client123!");
+  const adminHash = await hashPassword("Admin123@");
+  const clientHash = await hashPassword("Client123@");
 
   const [superAdmin] = await db
     .insert(schema.users)
@@ -62,7 +63,7 @@ async function seed() {
   const [client] = await db
     .insert(schema.users)
     .values({
-      email: "john@example.com",
+      email: "mathiasjiya2@gmail.com",
       passwordHash: clientHash,
       role: "CLIENT",
       emailVerified: true,

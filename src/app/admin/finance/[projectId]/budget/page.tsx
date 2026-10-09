@@ -41,7 +41,7 @@ export default async function BudgetEditorPage({
     : [];
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
           <DollarSign className="h-6 w-6 text-[var(--pb-text-muted)]" />

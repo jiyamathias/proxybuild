@@ -37,19 +37,16 @@ export function AdminSidebar({ session }: { session: SessionUser }) {
   const pathname = usePathname();
 
   return (
-    <aside className="flex flex-col w-64 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] shrink-0 h-full">
+    <aside className="flex flex-col w-64 border-r border-[var(--pb-border)] bg-[var(--pb-surface)] shrink-0 h-screen overflow-y-auto">
       {/* Logo */}
-      <div className="px-5 py-4 border-b border-[var(--pb-border)] flex items-center justify-between">
+      <div className="px-5 h-16 border-b border-[var(--pb-border)] flex items-center shrink-0">
         <Link href="/admin">
-          <ProxyBuildLogo size={28} className="text-sm font-semibold" />
+          <ProxyBuildLogo size={44} wordmark />
         </Link>
-        <span className="text-[10px] font-medium bg-[var(--pb-green-muted)] text-[var(--pb-green)] px-1.5 py-0.5 rounded">
-          Admin
-        </span>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-0.5">
         {navItems.map((item) => {
           const active =
             item.href === "/admin"

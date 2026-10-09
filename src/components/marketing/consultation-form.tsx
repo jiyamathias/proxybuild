@@ -28,13 +28,40 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+function formatNaira(raw: string): string | null {
+  const num = parseFloat(raw.replace(/,/g, ""));
+  if (isNaN(num) || num <= 0) return null;
+  return new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(num);
+}
+
+const MONTHS = [
+  { label: "January", value: "01" }, { label: "February", value: "02" },
+  { label: "March", value: "03" },   { label: "April", value: "04" },
+  { label: "May", value: "05" },     { label: "June", value: "06" },
+  { label: "July", value: "07" },    { label: "August", value: "08" },
+  { label: "September", value: "09" },{ label: "October", value: "10" },
+  { label: "November", value: "11" },{ label: "December", value: "12" },
+];
+
+const currentYear = new Date().getFullYear();
+const YEARS = Array.from({ length: 6 }, (_, i) => currentYear + i);
+
 export function ConsultationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [budgetRaw, setBudgetRaw] = useState("");
+  const [tlMonth, setTlMonth] = useState("");
+  const [tlYear, setTlYear] = useState("");
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
@@ -64,11 +91,11 @@ export function ConsultationForm() {
           <CheckCircle2 className="h-8 w-8 text-green-400" />
         </div>
         <h2 className="text-2xl font-bold text-white mb-3">
-          Request received!
+          We&apos;ve got your request!
         </h2>
         <p className="text-[var(--pb-text-muted)] max-w-sm mx-auto">
-          Thank you. A ProxyBuild team member will review your project and reach
-          out within 1–2 business days.
+          One of our project advisors will review your brief and be in touch
+          within 1–2 business days to discuss your build.
         </p>
       </div>
     );
@@ -226,20 +253,63 @@ export function ConsultationForm() {
       {/* Budget and Timeline */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <Label htmlFor="estimatedBudget">Estimated Budget</Label>
+          <Label htmlFor="estimatedBudget">Estimated Budget (₦)</Label>
           <Input
             id="estimatedBudget"
-            placeholder="e.g. ₦30M–₦50M or £80,000"
-            {...register("estimatedBudget")}
+            inputMode="numeric"
+            placeholder="e.g. 25000000"
+            value={budgetRaw}
+            onChange={(e) => {
+              const val = e.target.value.replace(/[^0-9]/g, "");
+              setBudgetRaw(val);
+              setValue("estimatedBudget", val);
+            }}
           />
+          {budgetRaw && formatNaira(budgetRaw) && (
+            <p className="text-sm font-medium text-[var(--pb-green)]">
+              {formatNaira(budgetRaw)}
+            </p>
+          )}
         </div>
+
+        {/* Target Completion Date */}
         <div className="space-y-1.5">
-          <Label htmlFor="desiredTimeline">Desired Timeline</Label>
-          <Input
-            id="desiredTimeline"
-            placeholder="e.g. Start Q1 2026, 18 months"
-            {...register("desiredTimeline")}
-          />
+          <Label>Target Completion Date</Label>
+          <div className="grid grid-cols-2 gap-2">
+            <select
+              value={tlMonth}
+              onChange={(e) => {
+                setTlMonth(e.target.value);
+                const val = e.target.value && tlYear ? `${tlYear}-${e.target.value}` : "";
+                setValue("desiredTimeline", val);
+              }}
+              className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
+            >
+              <option value="">Month</option>
+              {MONTHS.map((m) => (
+                <option key={m.value} value={m.value}>{m.label}</option>
+              ))}
+            </select>
+            <select
+              value={tlYear}
+              onChange={(e) => {
+                setTlYear(e.target.value);
+                const val = tlMonth && e.target.value ? `${e.target.value}-${tlMonth}` : "";
+                setValue("desiredTimeline", val);
+              }}
+              className="flex h-10 w-full rounded-lg border border-[var(--pb-border)] bg-[var(--pb-surface-elevated)] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
+            >
+              <option value="">Year</option>
+              {YEARS.map((y) => (
+                <option key={y} value={String(y)}>{y}</option>
+              ))}
+            </select>
+          </div>
+          {tlMonth && tlYear && (
+            <p className="text-xs font-medium text-[var(--pb-green)]">
+              Target: {MONTHS.find((m) => m.value === tlMonth)?.label} {tlYear}
+            </p>
+          )}
         </div>
       </div>
 

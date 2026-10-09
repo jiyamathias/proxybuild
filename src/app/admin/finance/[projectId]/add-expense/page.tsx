@@ -24,7 +24,7 @@ export default async function AddExpensePage({
   if (!project) notFound();
 
   return (
-    <div className="max-w-xl space-y-6">
+    <div className="space-y-6">
       <div>
         <div className="flex items-center gap-2 mb-1 text-sm">
           <Link
@@ -38,11 +38,13 @@ export default async function AddExpensePage({
         </div>
         <h1 className="text-2xl font-bold text-white">Log Expense</h1>
       </div>
-      <AddExpenseForm
-        projectId={projectId}
-        currency={project.currency ?? "NGN"}
-        milestones={milestones.map((m) => ({ id: m.id, title: m.title }))}
-      />
+      <div className="max-w-2xl">
+        <AddExpenseForm
+          projectId={projectId}
+          currency={project.currency ?? "NGN"}
+          milestones={milestones.map((m) => ({ id: m.id, title: m.title }))}
+        />
+      </div>
     </div>
   );
 }

@@ -48,7 +48,7 @@ export default async function NewProjectPage() {
     );
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
           <FolderPlus className="h-6 w-6 text-[var(--pb-text-muted)]" />
@@ -59,7 +59,9 @@ export default async function NewProjectPage() {
         </p>
       </div>
 
-      <CreateProjectForm clients={clientRows} staff={staffRows} />
+      <div className="max-w-2xl">
+        <CreateProjectForm clients={clientRows} staff={staffRows} />
+      </div>
     </div>
   );
 }

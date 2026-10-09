@@ -21,7 +21,7 @@ export default async function NewChangeOrderPage({
   if (!project) notFound();
 
   return (
-    <div className="max-w-xl space-y-6">
+    <div className="space-y-6">
       <div>
         <div className="flex items-center gap-2 mb-1 text-sm">
           <Link
@@ -35,10 +35,12 @@ export default async function NewChangeOrderPage({
         </div>
         <h1 className="text-2xl font-bold text-white">New Change Order</h1>
       </div>
-      <NewChangeOrderForm
-        projectId={projectId}
-        currency={project.currency ?? "NGN"}
-      />
+      <div className="max-w-2xl">
+        <NewChangeOrderForm
+          projectId={projectId}
+          currency={project.currency ?? "NGN"}
+        />
+      </div>
     </div>
   );
 }

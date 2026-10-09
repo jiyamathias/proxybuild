@@ -13,7 +13,7 @@ export function AdminTopNav({ session }: { session: SessionUser }) {
 
   return (
     <>
-      <header className="border-b border-[var(--pb-border)] bg-[var(--pb-surface)] px-4 sm:px-6 py-3 flex items-center gap-4 sticky top-0 z-30">
+      <header className="border-b border-[var(--pb-border)] bg-[var(--pb-surface)] px-4 sm:px-6 h-16 flex items-center gap-4 sticky top-0 z-30">
         {/* Mobile logo */}
         <Link href="/admin" className="lg:hidden">
           <ProxyBuildLogo size={36} wordmark />
