@@ -41,7 +41,7 @@ export function AdminSidebar({ session }: { session: SessionUser }) {
       {/* Logo */}
       <div className="px-5 h-16 border-b border-[var(--pb-border)] flex items-center shrink-0">
         <Link href="/admin">
-          <ProxyBuildLogo size={44} wordmark />
+          <ProxyBuildLogo size={52} wordmark />
         </Link>
       </div>
 

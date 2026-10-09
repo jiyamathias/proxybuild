@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, Menu, Search } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 import { cn, getInitials } from "@/lib/utils";
 import type { SessionUser } from "@/lib/auth/session";
 import { useState } from "react";
 import { AdminSidebar } from "./sidebar";
 import { ProxyBuildLogo } from "@/components/ui/logo";
+import { AdminSearch } from "./search";
 
 export function AdminTopNav({ session }: { session: SessionUser }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,14 +22,7 @@ export function AdminTopNav({ session }: { session: SessionUser }) {
 
         {/* Search */}
         <div className="hidden sm:flex flex-1 max-w-md">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--pb-text-subtle)]" />
-            <input
-              type="search"
-              placeholder="Search projects, clients…"
-              className="w-full h-9 bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-lg pl-9 pr-4 text-sm text-white placeholder:text-[var(--pb-text-subtle)] focus:outline-none focus:ring-1 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
-            />
-          </div>
+          <AdminSearch />
         </div>
 
         <div className="ml-auto flex items-center gap-2">
