@@ -73,3 +73,23 @@ export const consultations = pgTable(
     index("consultations_created_idx").on(t.createdAt),
   ]
 );
+
+export const consultationNotes = pgTable(
+  "consultation_notes",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    consultationId: uuid("consultation_id")
+      .notNull()
+      .references(() => consultations.id, { onDelete: "cascade" }),
+    authorId: uuid("author_id")
+      .notNull()
+      .references(() => users.id),
+    statusAtTime: text("status_at_time").notNull(),
+    body: text("body").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("consultation_notes_consultation_idx").on(t.consultationId),
+    index("consultation_notes_created_idx").on(t.createdAt),
+  ]
+);

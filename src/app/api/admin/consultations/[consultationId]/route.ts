@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { isStaff } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { consultations } from "@/db/schema";
+import { consultations, consultationNotes } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
@@ -11,6 +11,8 @@ const schema = z.object({
   status: z
     .enum(["NEW", "REVIEWING", "CONTACTED", "SCHEDULED", "COMPLETED", "REJECTED"])
     .optional(),
+  noteBody: z.string().max(5000).optional(),
+  // legacy field kept for internal mark-as-COMPLETED calls that pass no note
   internalNotes: z.string().max(5000).optional(),
 });
 
@@ -36,10 +38,24 @@ export async function PATCH(
     .limit(1);
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
+  const newStatus = body.data.status ?? existing.status;
+
+  // Update consultation status
   await db
     .update(consultations)
-    .set({ ...body.data, updatedAt: new Date() })
+    .set({ status: newStatus, updatedAt: new Date() })
     .where(eq(consultations.id, consultationId));
+
+  // Append a note entry if a note body was provided
+  const noteText = body.data.noteBody ?? body.data.internalNotes;
+  if (noteText && noteText.trim()) {
+    await db.insert(consultationNotes).values({
+      consultationId,
+      authorId: session.id,
+      statusAtTime: newStatus,
+      body: noteText.trim(),
+    });
+  }
 
   if (body.data.status && body.data.status !== existing.status) {
     await createAuditLog({

@@ -4,8 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { isStaff } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { consultations } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { consultations, consultationNotes, profiles } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import {
@@ -59,11 +59,22 @@ export default async function ConsultationDetailPage({
 
   const { consultationId } = await params;
 
-  const [consultation] = await db
-    .select()
-    .from(consultations)
-    .where(eq(consultations.id, consultationId))
-    .limit(1);
+  const [[consultation], notes] = await Promise.all([
+    db.select().from(consultations).where(eq(consultations.id, consultationId)).limit(1),
+    db
+      .select({
+        id: consultationNotes.id,
+        body: consultationNotes.body,
+        statusAtTime: consultationNotes.statusAtTime,
+        createdAt: consultationNotes.createdAt,
+        authorFirstName: profiles.firstName,
+        authorLastName: profiles.lastName,
+      })
+      .from(consultationNotes)
+      .leftJoin(profiles, eq(profiles.userId, consultationNotes.authorId))
+      .where(eq(consultationNotes.consultationId, consultationId))
+      .orderBy(desc(consultationNotes.createdAt)),
+  ]);
 
   if (!consultation) notFound();
 
@@ -206,7 +217,7 @@ export default async function ConsultationDetailPage({
         <ConsultationStatusForm
           consultationId={consultationId}
           currentStatus={consultation.status}
-          currentNotes={consultation.internalNotes ?? ""}
+          notes={notes}
           consultationEmail={consultation.email}
           consultationFirstName={consultation.firstName}
           consultationLastName={consultation.lastName}
