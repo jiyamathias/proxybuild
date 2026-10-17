@@ -166,3 +166,130 @@ export async function sendMilestoneApprovalRequest(params: {
     `
   );
 }
+
+// ---------------------------------------------------------------------------
+// Scheduled digests and reminders
+// ---------------------------------------------------------------------------
+
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://proxybuild.africa";
+
+/** Shared chrome so scheduled mail stays visually consistent with the product. */
+function shell(heading: string, bodyHtml: string, footerNote?: string) {
+  return `
+  <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0A0A0A;color:#fff;padding:32px;border-radius:8px;">
+    <div style="color:#16A34A;font-size:22px;font-weight:700;margin-bottom:24px;">ProxyBuild</div>
+    <h1 style="font-size:24px;margin:0 0 16px;">${heading}</h1>
+    ${bodyHtml}
+    <p style="color:#6B7280;font-size:12px;margin-top:32px;border-top:1px solid #262626;padding-top:16px;">
+      ${footerNote ?? "You're receiving this because you have an active project with ProxyBuild Africa."}
+      <br/>
+      <a href="${APP_URL}/dashboard/settings" style="color:#6B7280;">Manage email preferences</a>
+    </p>
+  </div>`;
+}
+
+function button(href: string, label: string) {
+  return `<a href="${href}" style="display:inline-block;background:#16A34A;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;margin:20px 0;">${label}</a>`;
+}
+
+export type DigestProject = {
+  id: string;
+  title: string;
+  progressPercent: number;
+  currentMilestone: string | null;
+  updatesThisWeek: { title: string; createdAt: Date }[];
+  newPhotoCount: number;
+  outstandingLabel: string | null;
+  awaitingApproval: string | null;
+};
+
+export async function sendWeeklyDigest(params: {
+  to: string;
+  firstName: string;
+  projects: DigestProject[];
+}): Promise<EmailResult> {
+  const blocks = params.projects
+    .map((p) => {
+      const updates =
+        p.updatesThisWeek.length > 0
+          ? `<ul style="color:#A3A3A3;font-size:14px;line-height:1.7;margin:12px 0 0;padding-left:18px;">
+               ${p.updatesThisWeek.map((u) => `<li>${u.title}</li>`).join("")}
+             </ul>`
+          : `<p style="color:#6B7280;font-size:14px;margin:12px 0 0;">No written updates this week.</p>`;
+
+      const photos =
+        p.newPhotoCount > 0
+          ? `<p style="color:#A3A3A3;font-size:14px;margin:8px 0 0;">${p.newPhotoCount} new photo${p.newPhotoCount === 1 ? "" : "s"} from site.</p>`
+          : "";
+
+      const approval = p.awaitingApproval
+        ? `<div style="background:#422006;border:1px solid #CA8A04;border-radius:6px;padding:12px;margin-top:12px;">
+             <p style="color:#FDE047;font-size:14px;margin:0;">Awaiting your approval: <strong>${p.awaitingApproval}</strong></p>
+           </div>`
+        : "";
+
+      const outstanding = p.outstandingLabel
+        ? `<p style="color:#A3A3A3;font-size:14px;margin:8px 0 0;">Outstanding balance: <strong style="color:#fff;">${p.outstandingLabel}</strong></p>`
+        : "";
+
+      return `
+      <div style="background:#171717;border-radius:8px;padding:20px;margin-bottom:16px;">
+        <h2 style="font-size:17px;margin:0 0 4px;color:#fff;">${p.title}</h2>
+        <p style="color:#16A34A;font-size:14px;margin:0 0 12px;font-weight:600;">
+          ${p.progressPercent}% complete${p.currentMilestone ? ` · ${p.currentMilestone}` : ""}
+        </p>
+        <div style="background:#262626;border-radius:999px;height:6px;overflow:hidden;">
+          <div style="background:#16A34A;height:6px;width:${Math.min(100, Math.max(0, p.progressPercent))}%;"></div>
+        </div>
+        ${updates}
+        ${photos}
+        ${outstanding}
+        ${approval}
+        <div style="margin-top:4px;">
+          ${button(`${APP_URL}/dashboard/projects/${p.id}`, "View Project")}
+        </div>
+      </div>`;
+    })
+    .join("");
+
+  return send(
+    params.to,
+    "This week on your project — ProxyBuild",
+    shell(
+      `Hello ${params.firstName},`,
+      `<p style="color:#A3A3A3;line-height:1.6;margin:0 0 20px;">
+         Here's what happened on your ${params.projects.length === 1 ? "project" : "projects"} this week.
+       </p>
+       ${blocks}`
+    )
+  );
+}
+
+export async function sendPaymentReminder(params: {
+  to: string;
+  firstName: string;
+  projectId: string;
+  projectTitle: string;
+  outstandingLabel: string;
+}): Promise<EmailResult> {
+  return send(
+    params.to,
+    `Outstanding balance on ${params.projectTitle} — ProxyBuild`,
+    shell(
+      "A friendly reminder",
+      `<p style="color:#A3A3A3;line-height:1.6;">
+         Hi ${params.firstName}, there is an outstanding balance of
+         <strong style="color:#fff;">${params.outstandingLabel}</strong> on
+         <strong style="color:#fff;">${params.projectTitle}</strong>.
+       </p>
+       <p style="color:#A3A3A3;line-height:1.6;">
+         Keeping payments current helps us keep your build on schedule. You can pay securely
+         from your dashboard at any time.
+       </p>
+       ${button(`${APP_URL}/dashboard/projects/${params.projectId}/payments`, "View & Pay")}
+       <p style="color:#6B7280;font-size:13px;">
+         If you've already paid or believe this is an error, please reply to this email and we'll sort it out.
+       </p>`
+    )
+  );
+}
