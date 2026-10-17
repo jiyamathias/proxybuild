@@ -2,14 +2,35 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { getProjectForUser } from "@/lib/services/projects";
 import { db } from "@/lib/db";
-import { messages, profiles, users, notifications, projectMembers } from "@/db/schema";
+import {
+  messages,
+  profiles,
+  users,
+  notifications,
+  projectMembers,
+  messageAttachments,
+} from "@/db/schema";
 import { eq, and, ne, inArray, isNull } from "drizzle-orm";
 import { isStaff } from "@/lib/permissions";
+import { getPresignedDownloadUrl } from "@/lib/r2";
 import { z } from "zod/v4";
 
-const schema = z.object({
-  body: z.string().min(1).max(5000),
+const attachmentSchema = z.object({
+  storageKey: z.string().min(1).max(500),
+  fileName: z.string().min(1).max(255),
+  mimeType: z.string().min(1).max(120),
+  fileSizeBytes: z.number().positive().optional(),
 });
+
+const schema = z
+  .object({
+    body: z.string().max(5000).default(""),
+    attachments: z.array(attachmentSchema).max(5).optional(),
+  })
+  // A message must carry something — text, files, or both
+  .refine((v) => v.body.trim().length > 0 || (v.attachments?.length ?? 0) > 0, {
+    message: "Message cannot be empty",
+  });
 
 export async function POST(
   req: NextRequest,
@@ -36,6 +57,22 @@ export async function POST(
     })
     .returning();
 
+  const attachmentRows =
+    body.data.attachments && body.data.attachments.length > 0
+      ? await db
+          .insert(messageAttachments)
+          .values(
+            body.data.attachments.map((a) => ({
+              messageId: inserted.id,
+              storageKey: a.storageKey,
+              fileName: a.fileName,
+              mimeType: a.mimeType,
+              fileSizeBytes: a.fileSizeBytes ?? null,
+            }))
+          )
+          .returning()
+      : [];
+
   // Fetch sender profile for the response
   const [profile] = await db
     .select({ firstName: profiles.firstName, lastName: profiles.lastName })
@@ -46,10 +83,16 @@ export async function POST(
   const senderName = profile
     ? `${profile.firstName} ${profile.lastName}`.trim()
     : "ProxyBuild";
-  const preview =
-    body.data.body.length > 120
-      ? `${body.data.body.slice(0, 120)}…`
-      : body.data.body;
+  const attachmentNote =
+    attachmentRows.length > 0
+      ? `${attachmentRows.length} attachment${attachmentRows.length === 1 ? "" : "s"}`
+      : "";
+  const trimmed = body.data.body.trim();
+  const preview = trimmed
+    ? trimmed.length > 120
+      ? `${trimmed.slice(0, 120)}…`
+      : trimmed
+    : attachmentNote;
 
   // Notify the other side of the conversation
   if (isStaff(session)) {
@@ -104,12 +147,24 @@ export async function POST(
     }
   }
 
+  // Hand back viewable URLs so the sender sees their attachments immediately
+  const attachments = await Promise.all(
+    attachmentRows.map(async (a) => ({
+      id: a.id,
+      fileName: a.fileName,
+      mimeType: a.mimeType,
+      fileSizeBytes: a.fileSizeBytes,
+      url: await getPresignedDownloadUrl(a.storageKey).catch(() => null),
+    }))
+  );
+
   return NextResponse.json({
     message: {
       message: inserted,
       senderFirstName: profile?.firstName ?? null,
       senderLastName: profile?.lastName ?? null,
       senderRole: session.role,
+      attachments,
     },
   });
 }

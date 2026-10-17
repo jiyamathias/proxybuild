@@ -7,15 +7,17 @@ import {
   documents,
   payments,
   messages,
+  messageAttachments,
   notifications,
   profiles,
   users,
   budgets,
   changeOrders,
 } from "@/db/schema";
-import { eq, and, desc, asc, count, sql } from "drizzle-orm";
+import { eq, and, desc, asc, count, sql, inArray } from "drizzle-orm";
 import type { SessionUser } from "@/lib/auth/session";
 import { isStaff } from "@/lib/permissions";
+import { getPresignedDownloadUrl } from "@/lib/r2";
 
 /** Returns a project only if the session user is authorized to view it */
 export async function getProjectForUser(
@@ -138,7 +140,7 @@ export async function getProjectBudget(projectId: string) {
 }
 
 export async function getProjectMessages(projectId: string) {
-  return db
+  const rows = await db
     .select({
       message: messages,
       senderFirstName: profiles.firstName,
@@ -155,6 +157,42 @@ export async function getProjectMessages(projectId: string) {
       )
     )
     .orderBy(asc(messages.createdAt));
+
+  if (rows.length === 0) return [];
+
+  const attachmentRows = await db
+    .select()
+    .from(messageAttachments)
+    .where(
+      inArray(
+        messageAttachments.messageId,
+        rows.map((r) => r.message.id)
+      )
+    );
+
+  // Presign once per attachment, in parallel
+  const signed = await Promise.all(
+    attachmentRows.map(async (a) => ({
+      messageId: a.messageId,
+      id: a.id,
+      fileName: a.fileName,
+      mimeType: a.mimeType,
+      fileSizeBytes: a.fileSizeBytes,
+      url: await getPresignedDownloadUrl(a.storageKey).catch(() => null),
+    }))
+  );
+
+  const byMessage = new Map<string, typeof signed>();
+  for (const a of signed) {
+    const list = byMessage.get(a.messageId) ?? [];
+    list.push(a);
+    byMessage.set(a.messageId, list);
+  }
+
+  return rows.map((r) => ({
+    ...r,
+    attachments: byMessage.get(r.message.id) ?? [],
+  }));
 }
 
 export async function getUnreadNotificationCount(userId: string) {
