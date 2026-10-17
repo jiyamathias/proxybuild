@@ -24,6 +24,7 @@ const schema = z.object({
   estimatedBudget: z.string().optional(),
   desiredTimeline: z.string().optional(),
   description: z.string().min(20, "Please provide at least 20 characters describing your project"),
+  website: z.string().max(0).optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -106,6 +107,16 @@ export function ConsultationForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="bg-[var(--pb-surface)] border border-[var(--pb-border)] rounded-2xl p-6 sm:p-8 space-y-6"
     >
+      {/* Honeypot — hidden from humans, bots fill it and get silently dropped */}
+      <input
+        type="text"
+        {...register("website")}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
+
       {/* Name */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">

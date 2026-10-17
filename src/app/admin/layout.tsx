@@ -20,6 +20,7 @@ export default async function AdminLayout({
 }) {
   const session = await getSession();
   if (!session) redirect("/login");
+  if (session.mustChangePassword) redirect("/change-password");
   if (!ADMIN_ROLES.includes(session.role as (typeof ADMIN_ROLES)[number])) {
     redirect("/dashboard");
   }

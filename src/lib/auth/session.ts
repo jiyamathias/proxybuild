@@ -18,6 +18,7 @@ export type SessionUser = {
   firstName: string;
   lastName: string;
   avatarUrl: string | null;
+  mustChangePassword: boolean;
 };
 
 export async function createSession(userId: string): Promise<string> {
@@ -73,6 +74,7 @@ export async function getSession(): Promise<SessionUser | null> {
       firstName: profiles.firstName,
       lastName: profiles.lastName,
       avatarUrl: profiles.avatarUrl,
+      mustChangePassword: users.mustChangePassword,
       isActive: users.isActive,
     })
     .from(sessions)

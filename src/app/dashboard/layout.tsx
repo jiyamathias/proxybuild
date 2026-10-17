@@ -12,6 +12,7 @@ export default async function DashboardLayout({
 }) {
   const session = await getSession();
   if (!session) redirect("/login");
+  if (session.mustChangePassword) redirect("/change-password");
 
   // Admins/internal staff go to /admin
   if (session.role !== "CLIENT") redirect("/admin");
