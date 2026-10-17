@@ -55,6 +55,7 @@ export const AuditActions = {
 
   DOCUMENT_UPLOADED: "document.uploaded",
   DOCUMENT_DELETED: "document.deleted",
+  DOCUMENT_SIGNED: "document.signed",
 
   CHANGE_ORDER_CREATED: "change_order.created",
   CHANGE_ORDER_APPROVED: "change_order.approved",

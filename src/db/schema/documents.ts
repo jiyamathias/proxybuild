@@ -52,6 +52,8 @@ export const documents = pgTable(
     parentDocumentId: uuid("parent_document_id"),
 
     isClientVisible: boolean("is_client_visible").notNull().default(true),
+    // Admin marks a document (typically a CONTRACT) as needing client sign-off
+    requiresSignature: boolean("requires_signature").notNull().default(false),
 
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -60,5 +62,44 @@ export const documents = pgTable(
     index("documents_project_idx").on(t.projectId),
     index("documents_milestone_idx").on(t.milestoneId),
     index("documents_category_idx").on(t.category),
+  ]
+);
+
+/**
+ * Records a client's electronic acceptance of a document.
+ *
+ * Evidence captured follows common e-signature practice: who signed, the name they
+ * typed, when, from where, and which exact version of the file was on screen.
+ */
+export const documentSignatures = pgTable(
+  "document_signatures",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    documentId: uuid("document_id")
+      .notNull()
+      .references(() => documents.id, { onDelete: "cascade" }),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    signerId: uuid("signer_id")
+      .notNull()
+      .references(() => users.id),
+
+    // Typed name is the signature mark; kept verbatim as entered
+    signerName: text("signer_name").notNull(),
+    // The exact wording the signer agreed to, stored so it survives copy changes
+    agreementStatement: text("agreement_statement").notNull(),
+
+    // What was actually on screen at signing
+    documentVersion: integer("document_version").notNull(),
+    documentStorageKey: text("document_storage_key").notNull(),
+
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    signedAt: timestamp("signed_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("document_signatures_document_idx").on(t.documentId),
+    index("document_signatures_project_idx").on(t.projectId),
   ]
 );

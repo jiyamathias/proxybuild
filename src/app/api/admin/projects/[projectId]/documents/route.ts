@@ -14,6 +14,7 @@ const schema = z.object({
   category: z.string().default("OTHER"),
   description: z.string().optional(),
   isClientVisible: z.boolean().default(true),
+  requiresSignature: z.boolean().default(false),
   milestoneId: z.string().uuid().nullable().optional(),
 });
 
@@ -41,6 +42,7 @@ export async function POST(
     category,
     description,
     isClientVisible,
+    requiresSignature,
     milestoneId,
   } = body.data;
 
@@ -57,6 +59,7 @@ export async function POST(
       category: category as any,
       description: description ?? null,
       isClientVisible,
+      requiresSignature,
       milestoneId: milestoneId ?? null,
     })
     .returning();

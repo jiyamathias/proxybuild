@@ -44,6 +44,7 @@ export function UploadDocumentForm({ projectId, milestones }: Props) {
     category: "OTHER",
     description: "",
     isClientVisible: true,
+    requiresSignature: false,
     milestoneId: "",
   });
 
@@ -110,6 +111,7 @@ export function UploadDocumentForm({ projectId, milestones }: Props) {
           category: fields.category,
           description: fields.description || null,
           isClientVisible: fields.isClientVisible,
+          requiresSignature: fields.requiresSignature,
           milestoneId: fields.milestoneId || null,
         }),
       });
@@ -120,7 +122,7 @@ export function UploadDocumentForm({ projectId, milestones }: Props) {
       setProgress(100);
       setDone(true);
       setFile(null);
-      setFields({ title: "", category: "OTHER", description: "", isClientVisible: true, milestoneId: "" });
+      setFields({ title: "", category: "OTHER", description: "", isClientVisible: true, requiresSignature: false, milestoneId: "" });
       if (inputRef.current) inputRef.current.value = "";
       router.refresh();
     } catch (err) {
@@ -221,7 +223,7 @@ export function UploadDocumentForm({ projectId, milestones }: Props) {
             )}
           </div>
 
-          <div>
+          <div className="space-y-2">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
@@ -231,6 +233,28 @@ export function UploadDocumentForm({ projectId, milestones }: Props) {
               />
               <span className="text-sm text-[var(--pb-text-muted)]">
                 Visible to client
+              </span>
+            </label>
+
+            <label
+              className={`flex items-start gap-2 ${
+                fields.isClientVisible
+                  ? "cursor-pointer"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={fields.requiresSignature}
+                disabled={!fields.isClientVisible}
+                onChange={(e) => set("requiresSignature", e.target.checked)}
+                className="accent-[var(--pb-green)] h-4 w-4 rounded mt-0.5"
+              />
+              <span className="text-sm text-[var(--pb-text-muted)]">
+                Require client signature
+                <span className="block text-xs text-[var(--pb-text-subtle)]">
+                  The client must read and electronically sign before it is marked complete
+                </span>
               </span>
             </label>
           </div>
