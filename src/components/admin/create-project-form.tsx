@@ -14,6 +14,7 @@ type Staff = { id: string; firstName: string; lastName: string; role: string };
 interface Props {
   clients: Client[];
   staff: Staff[];
+  defaultClientId?: string;
 }
 
 const PROJECT_TYPES = [
@@ -29,13 +30,13 @@ const PROJECT_TYPES = [
 
 const CURRENCIES = ["NGN", "USD", "GBP", "CAD", "EUR", "AUD"];
 
-export function CreateProjectForm({ clients, staff }: Props) {
+export function CreateProjectForm({ clients, staff, defaultClientId }: Props) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [fields, setFields] = useState({
-    clientId: "",
+    clientId: defaultClientId ?? "",
     title: "",
     description: "",
     projectType: "RESIDENTIAL_NEW_BUILD",

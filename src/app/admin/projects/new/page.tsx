@@ -9,9 +9,15 @@ import { eq, and, inArray } from "drizzle-orm";
 import { CreateProjectForm } from "@/components/admin/create-project-form";
 import { FolderPlus } from "lucide-react";
 
-export default async function NewProjectPage() {
+export default async function NewProjectPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ clientId?: string }>;
+}) {
   const session = await getSession();
   if (!session || !canManageProjects(session)) redirect("/admin");
+
+  const { clientId } = await searchParams;
 
   // All CLIENT users
   const clientRows = await db
@@ -60,7 +66,15 @@ export default async function NewProjectPage() {
       </div>
 
       <div className="max-w-2xl">
-        <CreateProjectForm clients={clientRows} staff={staffRows} />
+        <CreateProjectForm
+          clients={clientRows}
+          staff={staffRows}
+          defaultClientId={
+            clientId && clientRows.some((c) => c.id === clientId)
+              ? clientId
+              : undefined
+          }
+        />
       </div>
     </div>
   );

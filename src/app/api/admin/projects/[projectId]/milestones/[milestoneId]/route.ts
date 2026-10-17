@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { canManageProjects } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { milestones, auditLogs } from "@/db/schema";
+import { milestones, auditLogs, notifications, projects } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { z } from "zod/v4";
 
@@ -66,6 +66,34 @@ export async function PATCH(
 
   if (!milestone) {
     return NextResponse.json({ error: "Milestone not found" }, { status: 404 });
+  }
+
+  // Notify the client when a client-visible milestone changes status
+  if (d.status !== undefined && milestone.isClientVisible) {
+    const [project] = await db
+      .select({ clientId: projects.clientId, title: projects.title })
+      .from(projects)
+      .where(eq(projects.id, projectId))
+      .limit(1);
+
+    const label = milestone.clientVisibleTitle ?? milestone.title;
+    const notifyMap: Record<string, { type: "MILESTONE_STARTED" | "MILESTONE_COMPLETED" | "MILESTONE_AWAITING_APPROVAL"; title: string }> = {
+      IN_PROGRESS: { type: "MILESTONE_STARTED", title: `Work started: ${label}` },
+      COMPLETED: { type: "MILESTONE_AWAITING_APPROVAL", title: `Ready for your approval: ${label}` },
+      APPROVED: { type: "MILESTONE_COMPLETED", title: `Milestone complete: ${label}` },
+    };
+    const notify = notifyMap[d.status];
+
+    if (notify && project?.clientId) {
+      await db.insert(notifications).values({
+        userId: project.clientId,
+        type: notify.type,
+        title: notify.title,
+        body: `${project.title} — ${label}`,
+        projectId,
+        actionUrl: `/dashboard/projects/${projectId}/milestones`,
+      });
+    }
   }
 
   await db.insert(auditLogs).values({

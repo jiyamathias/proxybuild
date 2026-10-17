@@ -2,8 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { getProjectForUser } from "@/lib/services/projects";
 import { db } from "@/lib/db";
-import { milestones, milestoneApprovals } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import {
+  milestones,
+  milestoneApprovals,
+  notifications,
+  projectMembers,
+  users,
+} from "@/db/schema";
+import { eq, and, ne, inArray, isNull } from "drizzle-orm";
 import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
@@ -61,6 +67,47 @@ export async function POST(
       comment: notes ?? null,
     });
   });
+
+  // Notify the team of the client's decision
+  const assigned = await db
+    .select({ id: projectMembers.userId })
+    .from(projectMembers)
+    .where(
+      and(
+        eq(projectMembers.projectId, projectId),
+        isNull(projectMembers.removedAt)
+      )
+    );
+
+  const targets =
+    assigned.length > 0
+      ? assigned
+      : await db
+          .select({ id: users.id })
+          .from(users)
+          .where(
+            and(
+              inArray(users.role, ["SUPER_ADMIN", "ADMIN"]),
+              eq(users.isActive, true),
+              ne(users.id, session.id)
+            )
+          );
+
+  if (targets.length > 0) {
+    const label = milestone.clientVisibleTitle ?? milestone.title;
+    await db.insert(notifications).values(
+      targets.map((t) => ({
+        userId: t.id,
+        type: "CLIENT_APPROVAL_RECEIVED" as const,
+        title: approved
+          ? `Client approved: ${label}`
+          : `Client requested changes: ${label}`,
+        body: notes ?? `${project.title} — ${label}`,
+        projectId,
+        actionUrl: `/admin/projects/${projectId}/milestones`,
+      }))
+    );
+  }
 
   await createAuditLog({
     actorId: session.id,

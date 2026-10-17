@@ -3,8 +3,9 @@ import { getSession } from "@/lib/auth/session";
 import { isStaff } from "@/lib/permissions";
 import { getProjectForUser } from "@/lib/services/projects";
 import { db } from "@/lib/db";
-import { payments, ledgerEntries } from "@/db/schema";
+import { payments, ledgerEntries, notifications } from "@/db/schema";
 import { createAuditLog, AuditActions } from "@/lib/audit";
+import { formatCurrency } from "@/lib/utils";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -66,6 +67,18 @@ export async function POST(
       referenceId: payment.id,
       referenceType: "payment",
       entryDate: paidAt ? new Date(paidAt) : new Date(),
+    });
+  }
+
+  // Notify the client that a payment was recorded against their project
+  if (status === "SUCCESSFUL" && project.clientId) {
+    await db.insert(notifications).values({
+      userId: project.clientId,
+      type: "PAYMENT_RECORDED",
+      title: `Payment recorded: ${formatCurrency(amount, currency)}`,
+      body: `A payment has been recorded on ${project.title}.`,
+      projectId,
+      actionUrl: `/dashboard/projects/${projectId}/payments`,
     });
   }
 
