@@ -110,6 +110,8 @@ export const payments = pgTable(
 
     status: paymentStatusEnum("status").notNull().default("PENDING"),
     provider: text("provider"),
+    // Our generated reference, sent to the gateway as tx_ref and echoed back by webhooks
+    txRef: text("tx_ref").unique(),
     providerReference: text("provider_reference"),
     description: text("description"),
     receiptUrl: text("receipt_url"),
@@ -138,9 +140,8 @@ export const ledgerEntries = pgTable(
       .notNull()
       .references(() => projects.id),
     milestoneId: uuid("milestone_id").references(() => milestones.id),
-    recordedById: uuid("recorded_by_id")
-      .notNull()
-      .references(() => users.id),
+    // Null for system-generated entries, e.g. a gateway payment confirmed by webhook
+    recordedById: uuid("recorded_by_id").references(() => users.id),
 
     entryType: ledgerEntryTypeEnum("entry_type").notNull(),
     description: text("description").notNull(),

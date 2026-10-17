@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import { MakePaymentButton } from "@/components/dashboard/project/make-payment-button";
 import { DollarSign, CheckCircle2, Clock, XCircle } from "lucide-react";
 
 function paymentStatusBadge(status: string) {
@@ -65,42 +66,54 @@ export default async function PaymentsPage({
   const paidPercent = budgetAmount > 0 ? (successfulTotal / budgetAmount) * 100 : 0;
   const remaining = budgetAmount - successfulTotal;
 
+  const outstanding = Math.max(0, remaining);
+  const isClient = project.clientId === session.id;
+
   return (
     <div className="space-y-6">
-      {/* Budget summary */}
-      {budgetAmount > 0 && (
-        <div className="bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-xl p-5">
-          <h2 className="text-sm font-semibold text-white mb-4">
-            Payment Summary
-          </h2>
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            <div>
-              <p className="text-xs text-[var(--pb-text-subtle)]">Total Budget</p>
-              <p className="text-base font-bold text-white">
+      {/* What's owed — the client's first question */}
+      <div className="bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-xl p-5 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-5">
+          <div>
+            <p className="text-xs text-[var(--pb-text-subtle)] uppercase tracking-wide mb-1">
+              {outstanding > 0 ? "Outstanding Balance" : "Balance"}
+            </p>
+            <p className="text-3xl font-bold text-white">
+              {formatCurrency(outstanding, currency)}
+            </p>
+            {budgetAmount > 0 && (
+              <p className="text-sm text-[var(--pb-text-muted)] mt-1">
+                {formatCurrency(successfulTotal, currency)} paid of{" "}
                 {formatCurrency(budgetAmount, currency)}
               </p>
-            </div>
-            <div>
-              <p className="text-xs text-[var(--pb-text-subtle)]">Paid</p>
-              <p className="text-base font-bold text-[var(--pb-success)]">
-                {formatCurrency(successfulTotal, currency)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-[var(--pb-text-subtle)]">Remaining</p>
-              <p className="text-base font-bold text-white">
-                {formatCurrency(Math.max(0, remaining), currency)}
-              </p>
-            </div>
+            )}
           </div>
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs text-[var(--pb-text-muted)]">
-              {Math.round(paidPercent)}% paid
-            </span>
-          </div>
-          <Progress value={paidPercent} className="h-2" />
+
+          {isClient && (
+            <MakePaymentButton
+              projectId={projectId}
+              currency={currency}
+              suggestedAmount={outstanding}
+            />
+          )}
         </div>
-      )}
+
+        {budgetAmount > 0 && (
+          <>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs text-[var(--pb-text-muted)]">
+                {Math.round(paidPercent)}% paid
+              </span>
+              {outstanding === 0 && (
+                <span className="text-xs text-[var(--pb-success)] font-medium">
+                  Fully paid
+                </span>
+              )}
+            </div>
+            <Progress value={paidPercent} className="h-2" />
+          </>
+        )}
+      </div>
 
       {/* Payment list */}
       {payments.length === 0 ? (
