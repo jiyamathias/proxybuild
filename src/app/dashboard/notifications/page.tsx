@@ -6,37 +6,9 @@ import { getUserNotifications } from "@/lib/services/projects";
 import { formatRelativeDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { MarkAllReadButton } from "@/components/dashboard/mark-all-read-button";
-import {
-  Bell,
-  CheckCircle2,
-  DollarSign,
-  MessageSquare,
-  FileText,
-  AlertCircle,
-  Info,
-} from "lucide-react";
-
-function notifIcon(type: string) {
-  const cls = "h-4 w-4";
-  switch (type) {
-    case "MILESTONE_APPROVED":
-    case "MILESTONE_COMPLETED":
-      return <CheckCircle2 className={`${cls} text-[var(--pb-success)]`} />;
-    case "PAYMENT_RECEIVED":
-    case "PAYMENT_DUE":
-      return <DollarSign className={`${cls} text-yellow-500`} />;
-    case "NEW_MESSAGE":
-      return <MessageSquare className={`${cls} text-blue-400`} />;
-    case "DOCUMENT_ADDED":
-      return <FileText className={`${cls} text-purple-400`} />;
-    case "PROJECT_UPDATE":
-      return <Info className={`${cls} text-[var(--pb-green)]`} />;
-    case "ACTION_REQUIRED":
-      return <AlertCircle className={`${cls} text-[var(--pb-danger)]`} />;
-    default:
-      return <Bell className={`${cls} text-[var(--pb-text-muted)]`} />;
-  }
-}
+import { NotificationIcon } from "@/components/ui/notification-icon";
+import Link from "next/link";
+import { Bell } from "lucide-react";
 
 export default async function NotificationsPage() {
   const session = await getSession();
@@ -71,38 +43,47 @@ export default async function NotificationsPage() {
         </div>
       ) : (
         <div className="space-y-1">
-          {notifications.map((notif) => (
-            <div
-              key={notif.id}
-              className={`flex gap-4 p-4 rounded-xl border transition-colors ${
-                !notif.isRead
-                  ? "bg-[var(--pb-green-muted)] border-[var(--pb-green)]/20"
-                  : "bg-[var(--pb-surface-elevated)] border-[var(--pb-border-subtle)]"
-              }`}
-            >
-              <div className="h-8 w-8 rounded-lg bg-[var(--pb-surface)] border border-[var(--pb-border-subtle)] flex items-center justify-center shrink-0 mt-0.5">
-                {notifIcon(notif.type)}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm font-medium text-white">
-                    {notif.title}
-                  </p>
-                  {!notif.isRead && (
-                    <span className="h-2 w-2 rounded-full bg-[var(--pb-green)] shrink-0 mt-1.5" />
-                  )}
+          {notifications.map((notif) => {
+            const content = (
+              <div
+                className={`flex gap-4 p-4 rounded-xl border transition-colors ${
+                  !notif.isRead
+                    ? "bg-[var(--pb-green-muted)] border-[var(--pb-green)]/20"
+                    : "bg-[var(--pb-surface-elevated)] border-[var(--pb-border-subtle)]"
+                } ${notif.actionUrl ? "hover:border-[var(--pb-green)]/40" : ""}`}
+              >
+                <div className="h-8 w-8 rounded-lg bg-[var(--pb-surface)] border border-[var(--pb-border-subtle)] flex items-center justify-center shrink-0 mt-0.5">
+                  <NotificationIcon type={notif.type} />
                 </div>
-                {notif.body && (
-                  <p className="text-sm text-[var(--pb-text-muted)] mt-0.5 leading-relaxed">
-                    {notif.body}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm font-medium text-white">
+                      {notif.title}
+                    </p>
+                    {!notif.isRead && (
+                      <span className="h-2 w-2 rounded-full bg-[var(--pb-green)] shrink-0 mt-1.5" />
+                    )}
+                  </div>
+                  {notif.body && (
+                    <p className="text-sm text-[var(--pb-text-muted)] mt-0.5 leading-relaxed">
+                      {notif.body}
+                    </p>
+                  )}
+                  <p className="text-xs text-[var(--pb-text-subtle)] mt-1.5">
+                    {formatRelativeDate(notif.createdAt)}
                   </p>
-                )}
-                <p className="text-xs text-[var(--pb-text-subtle)] mt-1.5">
-                  {formatRelativeDate(notif.createdAt)}
-                </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+
+            return notif.actionUrl ? (
+              <Link key={notif.id} href={notif.actionUrl} className="block">
+                {content}
+              </Link>
+            ) : (
+              <div key={notif.id}>{content}</div>
+            );
+          })}
         </div>
       )}
     </div>
