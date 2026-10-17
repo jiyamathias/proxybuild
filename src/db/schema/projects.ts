@@ -132,3 +132,35 @@ export const projectMembers = pgTable(
     index("project_members_user_idx").on(t.userId),
   ]
 );
+
+/**
+ * A client asking to see the site — a video walkthrough, their own visit, or an
+ * independent inspector. Offering this openly is a trust signal for clients who
+ * cannot drop in themselves.
+ */
+export const siteVisitRequests = pgTable(
+  "site_visit_requests",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    requestedById: uuid("requested_by_id")
+      .notNull()
+      .references(() => users.id),
+
+    // VIDEO_WALKTHROUGH | IN_PERSON | THIRD_PARTY_INSPECTION
+    visitType: text("visit_type").notNull(),
+    preferredDate: timestamp("preferred_date"),
+    notes: text("notes"),
+
+    // REQUESTED | SCHEDULED | COMPLETED | DECLINED
+    status: text("status").notNull().default("REQUESTED"),
+    staffResponse: text("staff_response"),
+    scheduledFor: timestamp("scheduled_for"),
+
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (t) => [index("site_visit_requests_project_idx").on(t.projectId)]
+);

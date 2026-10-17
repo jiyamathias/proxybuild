@@ -55,6 +55,8 @@ export const profiles = pgTable("profiles", {
   countryOfResidence: text("country_of_residence"),
   // Optional second currency shown alongside NGN amounts; display only, never billing
   preferredCurrency: text("preferred_currency"),
+  // Set when the client dismisses the first-run welcome
+  onboardedAt: timestamp("onboarded_at"),
   timezone: text("timezone"),
   bio: text("bio"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

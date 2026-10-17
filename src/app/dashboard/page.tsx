@@ -3,8 +3,9 @@ export const dynamic = 'force-dynamic';
 import { getSession } from "@/lib/auth/session";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { projects, milestones, notifications } from "@/db/schema";
+import { projects, milestones, notifications, profiles } from "@/db/schema";
 import { eq, and, desc, count } from "drizzle-orm";
+import { WelcomePanel } from "@/components/dashboard/welcome-panel";
 import Link from "next/link";
 import { formatCurrency, formatRelativeDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,6 +65,12 @@ export default async function DashboardPage() {
       and(eq(notifications.userId, session.id), eq(notifications.isRead, false))
     );
 
+  const [{ onboardedAt }] = await db
+    .select({ onboardedAt: profiles.onboardedAt })
+    .from(profiles)
+    .where(eq(profiles.userId, session.id))
+    .limit(1);
+
   const activeProjects = clientProjects.filter(
     (p) => p.status === "ACTIVE" || p.status === "CONTRACT"
   );
@@ -93,6 +100,9 @@ export default async function DashboardPage() {
           </Link>
         )}
       </div>
+
+      {/* First-run orientation */}
+      {!onboardedAt && <WelcomePanel firstName={session.firstName} />}
 
       {/* No projects state */}
       {clientProjects.length === 0 && (

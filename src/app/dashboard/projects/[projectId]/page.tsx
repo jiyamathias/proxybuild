@@ -19,6 +19,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { RequestVisitButton } from "@/components/dashboard/project/request-visit-button";
 import { db } from "@/lib/db";
 import { projectMembers, profiles, users } from "@/db/schema";
 import { eq, and, isNull } from "drizzle-orm";
@@ -147,15 +148,18 @@ export default async function ProjectOverviewPage({
               </div>
             ))}
           </div>
-          <p className="text-xs text-[var(--pb-text-subtle)] mt-3">
-            Need to reach them?{" "}
-            <Link
-              href={`/dashboard/projects/${projectId}/messages`}
-              className="text-[var(--pb-green)] hover:underline"
-            >
-              Send a message
-            </Link>
-          </p>
+          <div className="mt-4 flex items-center gap-3 flex-wrap">
+            <RequestVisitButton projectId={projectId} />
+            <span className="text-xs text-[var(--pb-text-subtle)]">
+              or{" "}
+              <Link
+                href={`/dashboard/projects/${projectId}/messages`}
+                className="text-[var(--pb-green)] hover:underline"
+              >
+                send your team a message
+              </Link>
+            </span>
+          </div>
         </section>
       )}
 
