@@ -9,6 +9,7 @@ import {
   users,
 } from "@/db/schema";
 import { eq, and, inArray, isNull } from "drizzle-orm";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const VISIT_TYPE_LABEL: Record<string, string> = {
@@ -98,6 +99,16 @@ export async function POST(
       }))
     );
   }
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.SITE_VISIT_REQUESTED,
+    entityType: "site_visit_request",
+    entityId: request.id,
+    projectId,
+    after: { visitType, preferredDate: preferredDate ?? null },
+  });
 
   return NextResponse.json({ success: true, id: request.id });
 }

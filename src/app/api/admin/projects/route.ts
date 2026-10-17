@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { canManageProjects } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { projects, projectMembers, auditLogs } from "@/db/schema";
+import { projects, projectMembers } from "@/db/schema";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -99,11 +100,13 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  await db.insert(auditLogs).values({
+  await createAuditLog({
     actorId: session.id,
-    action: "CREATE",
-    entityType: "PROJECT",
+    actorEmail: session.email,
+    action: AuditActions.PROJECT_CREATED,
+    entityType: "project",
     entityId: project.id,
+    projectId: project.id,
     after: { title, clientId, status, projectType },
   });
 

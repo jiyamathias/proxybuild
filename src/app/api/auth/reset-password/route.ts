@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { users } from "@/db/schema";
 import { eq, and, gt } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -47,6 +48,14 @@ export async function POST(req: NextRequest) {
       updatedAt: new Date(),
     })
     .where(eq(users.id, user.id));
+
+  await createAuditLog({
+    actorId: user.id,
+    action: AuditActions.USER_PASSWORD_RESET,
+    entityType: "user",
+    entityId: user.id,
+    metadata: { via: "reset_token" },
+  });
 
   return NextResponse.json({ success: true });
 }

@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
 import { profiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -31,6 +32,16 @@ export async function PATCH(req: NextRequest) {
     .update(profiles)
     .set({ ...body.data, updatedAt: new Date() })
     .where(eq(profiles.userId, session.id));
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.USER_PROFILE_UPDATED,
+    entityType: "user",
+    entityId: session.id,
+    after: body.data,
+    metadata: { selfEdit: true },
+  });
 
   return NextResponse.json({ success: true });
 }

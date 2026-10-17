@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { isStaff } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { documents, auditLogs } from "@/db/schema";
+import { documents } from "@/db/schema";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -64,12 +65,14 @@ export async function POST(
     })
     .returning();
 
-  await db.insert(auditLogs).values({
+  await createAuditLog({
     actorId: session.id,
-    action: "UPLOAD",
-    entityType: "DOCUMENT",
+    actorEmail: session.email,
+    action: AuditActions.DOCUMENT_UPLOADED,
+    entityType: "document",
     entityId: doc.id,
-    after: { title, fileName, category },
+    projectId,
+    after: { title, fileName, category, requiresSignature },
   });
 
   return NextResponse.json({ document: doc }, { status: 201 });

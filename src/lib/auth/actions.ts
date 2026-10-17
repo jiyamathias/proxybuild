@@ -6,7 +6,12 @@ import { db } from "@/lib/db";
 import { users, profiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { hashPassword, verifyPassword } from "./password";
-import { createSession, setSessionCookie, deleteSession } from "./session";
+import {
+  createSession,
+  setSessionCookie,
+  deleteSession,
+  getSession,
+} from "./session";
 import { createAuditLog, AuditActions } from "@/lib/audit";
 import { nanoid } from "nanoid";
 import { sendPasswordReset } from "@/lib/email";
@@ -55,15 +60,39 @@ export async function loginAction(
     .limit(1);
 
   if (!user || !user.passwordHash) {
+    // No actorId: the email may not belong to anyone. Recorded so repeated probing
+    // against unknown addresses is still visible in the trail.
+    await createAuditLog({
+      actorEmail: email.toLowerCase(),
+      action: AuditActions.USER_LOGIN_FAILED,
+      entityType: "user",
+      metadata: { reason: "unknown_email" },
+    });
     return { error: "Invalid email or password" };
   }
 
   if (!user.isActive) {
+    await createAuditLog({
+      actorId: user.id,
+      actorEmail: user.email,
+      action: AuditActions.USER_LOGIN_FAILED,
+      entityType: "user",
+      entityId: user.id,
+      metadata: { reason: "account_inactive" },
+    });
     return { error: "Your account is inactive. Please contact support." };
   }
 
   const valid = await verifyPassword(password, user.passwordHash);
   if (!valid) {
+    await createAuditLog({
+      actorId: user.id,
+      actorEmail: user.email,
+      action: AuditActions.USER_LOGIN_FAILED,
+      entityType: "user",
+      entityId: user.id,
+      metadata: { reason: "incorrect_password" },
+    });
     return { error: "Invalid email or password" };
   }
 
@@ -98,7 +127,21 @@ export async function loginAction(
 }
 
 export async function logoutAction(): Promise<void> {
+  // Capture identity before the session is torn down
+  const session = await getSession();
+
   await deleteSession();
+
+  if (session) {
+    await createAuditLog({
+      actorId: session.id,
+      actorEmail: session.email,
+      action: AuditActions.USER_LOGOUT,
+      entityType: "user",
+      entityId: session.id,
+    });
+  }
+
   redirect("/");
 }
 

@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { hashPassword } from "@/lib/auth/password";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -29,6 +30,15 @@ export async function POST(req: NextRequest) {
       updatedAt: new Date(),
     })
     .where(eq(users.id, session.id));
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.USER_PASSWORD_CHANGED,
+    entityType: "user",
+    entityId: session.id,
+    metadata: { reason: "forced_first_login" },
+  });
 
   return NextResponse.json({ success: true });
 }

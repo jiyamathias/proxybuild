@@ -5,6 +5,7 @@ import { getProjectForUser } from "@/lib/services/projects";
 import { db } from "@/lib/db";
 import { projectUpdates, projects, notifications } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -70,6 +71,16 @@ export async function POST(
       actionUrl: `/dashboard/projects/${projectId}/updates`,
     });
   }
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.UPDATE_PUBLISHED,
+    entityType: "project_update",
+    entityId: update.id,
+    projectId,
+    after: { title, isClientVisible, isPublished, progressDelta },
+  });
 
   return NextResponse.json({ update });
 }

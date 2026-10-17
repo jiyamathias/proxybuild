@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { isStaff } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { projectMedia, auditLogs } from "@/db/schema";
+import { projectMedia } from "@/db/schema";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -58,11 +59,13 @@ export async function POST(
     })
     .returning();
 
-  await db.insert(auditLogs).values({
+  await createAuditLog({
     actorId: session.id,
-    action: "UPLOAD",
-    entityType: "MEDIA",
+    actorEmail: session.email,
+    action: AuditActions.MEDIA_UPLOADED,
+    entityType: "media",
     entityId: media.id,
+    projectId,
     after: { mediaType, fileName },
   });
 

@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { canManageProjects } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { milestones, auditLogs, notifications, projects } from "@/db/schema";
+import { milestones, notifications, projects } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const patchSchema = z.object({
@@ -96,11 +97,13 @@ export async function PATCH(
     }
   }
 
-  await db.insert(auditLogs).values({
+  await createAuditLog({
     actorId: session.id,
-    action: "UPDATE",
-    entityType: "MILESTONE",
+    actorEmail: session.email,
+    action: AuditActions.MILESTONE_UPDATED,
+    entityType: "milestone",
     entityId: milestoneId,
+    projectId,
     after: updates,
   });
 
@@ -129,11 +132,13 @@ export async function DELETE(
     return NextResponse.json({ error: "Milestone not found" }, { status: 404 });
   }
 
-  await db.insert(auditLogs).values({
+  await createAuditLog({
     actorId: session.id,
-    action: "DELETE",
-    entityType: "MILESTONE",
+    actorEmail: session.email,
+    action: AuditActions.MILESTONE_DELETED,
+    entityType: "milestone",
     entityId: milestoneId,
+    projectId,
     before: { milestoneId },
   });
 

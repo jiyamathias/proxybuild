@@ -4,6 +4,7 @@ import { users, profiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { sendPasswordReset } from "@/lib/email";
 import crypto from "crypto";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -46,6 +47,13 @@ export async function POST(req: NextRequest) {
       to: user.email,
       firstName: user.firstName,
       resetUrl,
+    });
+    await createAuditLog({
+      actorId: user.id,
+      actorEmail: user.email,
+      action: AuditActions.USER_PASSWORD_RESET_REQUESTED,
+      entityType: "user",
+      entityId: user.id,
     });
   }
 

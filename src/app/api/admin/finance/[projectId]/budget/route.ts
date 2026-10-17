@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { canManageFinance } from "@/lib/permissions";
 import { db } from "@/lib/db";
-import { budgets, budgetItems, auditLogs } from "@/db/schema";
+import { budgets, budgetItems } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const itemSchema = z.object({
@@ -86,11 +87,13 @@ export async function POST(
     );
   }
 
-  await db.insert(auditLogs).values({
+  await createAuditLog({
     actorId: session.id,
-    action: "UPDATE",
-    entityType: "BUDGET",
+    actorEmail: session.email,
+    action: AuditActions.BUDGET_UPDATED,
+    entityType: "budget",
     entityId: budgetId,
+    projectId,
     after: { totalAmount, currency, itemCount: items.length },
   });
 

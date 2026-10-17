@@ -4,6 +4,7 @@ import { isStaff } from "@/lib/permissions";
 import { getProjectForUser } from "@/lib/services/projects";
 import { db } from "@/lib/db";
 import { ledgerEntries } from "@/db/schema";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const LEDGER_TYPES = [
@@ -62,6 +63,16 @@ export async function POST(
       entryDate: new Date(entryDate),
     })
     .returning();
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.LEDGER_ENTRY_CREATED,
+    entityType: "ledger_entry",
+    entityId: entry.id,
+    projectId,
+    after: { entryType, amount, currency, description },
+  });
 
   return NextResponse.json({ entry });
 }

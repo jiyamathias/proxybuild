@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
 import { profiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -30,10 +31,32 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
+  // Snapshot before so the trail shows what actually changed
+  const [before] = await db
+    .select({
+      firstName: profiles.firstName,
+      lastName: profiles.lastName,
+      phone: profiles.phone,
+    })
+    .from(profiles)
+    .where(eq(profiles.userId, userId))
+    .limit(1);
+
   await db
     .update(profiles)
     .set({ ...body.data, updatedAt: new Date() })
     .where(eq(profiles.userId, userId));
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.USER_PROFILE_UPDATED,
+    entityType: "user",
+    entityId: userId,
+    before,
+    after: body.data,
+    metadata: { selfEdit: session.id === userId },
+  });
 
   return NextResponse.json({ success: true });
 }

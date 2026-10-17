@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { createAuditLog, AuditActions } from "@/lib/audit";
 import { z } from "zod/v4";
 
 const schema = z.object({
@@ -32,6 +33,16 @@ export async function POST(req: NextRequest) {
 
   const valid = await bcrypt.compare(body.data.currentPassword, user.passwordHash);
   if (!valid) {
+    // A wrong current password is a signal worth keeping — it is what a hijacked
+    // session looks like when someone tries to lock the real owner out
+    await createAuditLog({
+      actorId: session.id,
+      actorEmail: session.email,
+      action: AuditActions.USER_PASSWORD_CHANGED,
+      entityType: "user",
+      entityId: session.id,
+      metadata: { outcome: "failed", reason: "incorrect_current_password" },
+    });
     return NextResponse.json({ error: "Current password is incorrect" }, { status: 400 });
   }
 
@@ -40,6 +51,15 @@ export async function POST(req: NextRequest) {
     .update(users)
     .set({ passwordHash: newHash, updatedAt: new Date() })
     .where(eq(users.id, session.id));
+
+  await createAuditLog({
+    actorId: session.id,
+    actorEmail: session.email,
+    action: AuditActions.USER_PASSWORD_CHANGED,
+    entityType: "user",
+    entityId: session.id,
+    metadata: { outcome: "success", reason: "self_service" },
+  });
 
   return NextResponse.json({ success: true });
 }
