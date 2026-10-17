@@ -12,6 +12,10 @@ import { Progress } from "@/components/ui/progress";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { MakePaymentButton } from "@/components/dashboard/project/make-payment-button";
 import { DollarSign, CheckCircle2, Clock, XCircle } from "lucide-react";
+import { db } from "@/lib/db";
+import { profiles } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import { approxLabel } from "@/lib/fx";
 
 function paymentStatusBadge(status: string) {
   const map: Record<string, { variant: "success" | "warning" | "danger" | "secondary"; label: string }> = {
@@ -69,6 +73,19 @@ export default async function PaymentsPage({
   const outstanding = Math.max(0, remaining);
   const isClient = project.clientId === session.id;
 
+  // Indicative conversion for clients who think in their country's currency
+  const [{ preferredCurrency }] = await db
+    .select({ preferredCurrency: profiles.preferredCurrency })
+    .from(profiles)
+    .where(eq(profiles.userId, session.id))
+    .limit(1);
+
+  const outstandingApprox = await approxLabel(
+    outstanding,
+    currency,
+    preferredCurrency
+  );
+
   return (
     <div className="space-y-6">
       {/* What's owed — the client's first question */}
@@ -81,6 +98,12 @@ export default async function PaymentsPage({
             <p className="text-3xl font-bold text-white">
               {formatCurrency(outstanding, currency)}
             </p>
+            {outstandingApprox && (
+              <p className="text-sm text-[var(--pb-text-subtle)] mt-0.5">
+                {outstandingApprox}{" "}
+                <span className="text-xs">· indicative rate</span>
+              </p>
+            )}
             {budgetAmount > 0 && (
               <p className="text-sm text-[var(--pb-text-muted)] mt-1">
                 {formatCurrency(successfulTotal, currency)} paid of{" "}

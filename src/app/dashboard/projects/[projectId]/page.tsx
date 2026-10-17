@@ -9,15 +9,27 @@ import {
 } from "@/lib/services/projects";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { formatDate, formatRelativeDate } from "@/lib/utils";
+import { formatDate, formatRelativeDate, getInitials } from "@/lib/utils";
 import {
   CheckCircle2,
   Clock,
   Circle,
   ArrowRight,
   CalendarDays,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
+import { db } from "@/lib/db";
+import { projectMembers, profiles, users } from "@/db/schema";
+import { eq, and, isNull } from "drizzle-orm";
+
+const TEAM_ROLE_LABEL: Record<string, string> = {
+  PROJECT_MANAGER: "Project Manager",
+  SITE_SUPERVISOR: "Site Supervisor",
+  ADMIN: "Account Manager",
+  SUPER_ADMIN: "Account Manager",
+  FINANCE: "Finance",
+};
 
 export default async function ProjectOverviewPage({
   params,
@@ -28,10 +40,28 @@ export default async function ProjectOverviewPage({
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [project, allMilestones, recentUpdates] = await Promise.all([
+  const [project, allMilestones, recentUpdates, team] = await Promise.all([
     getProjectForUser(projectId, session),
     getProjectMilestones(projectId, true),
     getProjectUpdates(projectId, true),
+    db
+      .select({
+        userId: projectMembers.userId,
+        role: projectMembers.role,
+        firstName: profiles.firstName,
+        lastName: profiles.lastName,
+        avatarUrl: profiles.avatarUrl,
+      })
+      .from(projectMembers)
+      .innerJoin(users, eq(users.id, projectMembers.userId))
+      .innerJoin(profiles, eq(profiles.userId, projectMembers.userId))
+      .where(
+        and(
+          eq(projectMembers.projectId, projectId),
+          isNull(projectMembers.removedAt),
+          eq(users.isActive, true)
+        )
+      ),
   ]);
   if (!project) notFound();
 
@@ -77,6 +107,57 @@ export default async function ProjectOverviewPage({
           </div>
         )}
       </div>
+
+      {/* Your team — putting names to the people on site */}
+      {team.length > 0 && (
+        <section>
+          <h2 className="text-base font-semibold text-white mb-1 flex items-center gap-2">
+            <Users className="h-4 w-4 text-[var(--pb-text-muted)]" />
+            Your Team
+          </h2>
+          <p className="text-sm text-[var(--pb-text-muted)] mb-4">
+            The ProxyBuild people responsible for your build.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {team.map((m) => (
+              <div
+                key={m.userId}
+                className="flex items-center gap-3 bg-[var(--pb-surface-elevated)] border border-[var(--pb-border-subtle)] rounded-xl p-4"
+              >
+                <div className="h-11 w-11 rounded-full bg-[var(--pb-green-muted)] border border-[var(--pb-green)]/20 flex items-center justify-center text-sm font-bold text-[var(--pb-green)] shrink-0 overflow-hidden">
+                  {m.avatarUrl ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={m.avatarUrl}
+                      alt={`${m.firstName} ${m.lastName}`}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    getInitials(m.firstName, m.lastName)
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-white truncate">
+                    {m.firstName} {m.lastName}
+                  </p>
+                  <p className="text-xs text-[var(--pb-text-subtle)]">
+                    {TEAM_ROLE_LABEL[m.role] ?? m.role.replace(/_/g, " ")}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-[var(--pb-text-subtle)] mt-3">
+            Need to reach them?{" "}
+            <Link
+              href={`/dashboard/projects/${projectId}/messages`}
+              className="text-[var(--pb-green)] hover:underline"
+            >
+              Send a message
+            </Link>
+          </p>
+        </section>
+      )}
 
       {/* Latest update */}
       {latestUpdate && (

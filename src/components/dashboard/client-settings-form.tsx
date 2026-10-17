@@ -14,6 +14,7 @@ interface ProfileProps {
     phone: string;
     countryOfResidence: string;
     timezone: string;
+    preferredCurrency: string;
   };
 }
 
@@ -99,6 +100,27 @@ export function ClientProfileForm({ userId, initialData }: ProfileProps) {
           value={fields.timezone}
           onChange={(e) => set("timezone", e.target.value)}
         />
+      </div>
+
+      <div>
+        <Label htmlFor="sfCurrency">Also show amounts in</Label>
+        <select
+          id="sfCurrency"
+          value={fields.preferredCurrency}
+          onChange={(e) => set("preferredCurrency", e.target.value)}
+          className="w-full h-10 bg-[var(--pb-surface-elevated)] border border-[var(--pb-border)] rounded-lg px-3 text-sm text-white focus:outline-none focus:ring-1 focus:ring-[var(--pb-green)] focus:border-[var(--pb-green)]"
+        >
+          <option value="">Naira only</option>
+          <option value="GBP">British Pound (£)</option>
+          <option value="USD">US Dollar ($)</option>
+          <option value="CAD">Canadian Dollar (C$)</option>
+          <option value="EUR">Euro (€)</option>
+          <option value="AUD">Australian Dollar (A$)</option>
+        </select>
+        <p className="text-xs text-[var(--pb-text-subtle)] mt-1.5">
+          Shows an approximate conversion next to Naira amounts. Indicative only —
+          all billing is in Naira.
+        </p>
       </div>
 
       {error && <p className="text-sm text-[var(--pb-danger)]">{error}</p>}

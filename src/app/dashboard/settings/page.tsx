@@ -47,6 +47,7 @@ export default async function DashboardSettingsPage() {
             phone: profile?.phone ?? "",
             countryOfResidence: profile?.countryOfResidence ?? "",
             timezone: profile?.timezone ?? "",
+            preferredCurrency: profile?.preferredCurrency ?? "",
           }}
         />
       </section>

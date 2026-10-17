@@ -15,6 +15,9 @@ import {
   CalendarDays,
 } from "lucide-react";
 import { MilestoneApproveButton } from "@/components/dashboard/project/milestone-approve-button";
+import { db } from "@/lib/db";
+import { milestoneApprovals, profiles } from "@/db/schema";
+import { eq, desc } from "drizzle-orm";
 
 function statusIcon(status: string) {
   switch (status) {
@@ -54,11 +57,32 @@ export default async function MilestonesPage({
   if (!session) redirect("/login");
 
   const { projectId } = await params;
-  const [project, milestones] = await Promise.all([
+  const [project, milestones, approvals] = await Promise.all([
     getProjectForUser(projectId, session),
     getProjectMilestones(projectId, true),
+    db
+      .select({
+        id: milestoneApprovals.id,
+        milestoneId: milestoneApprovals.milestoneId,
+        decision: milestoneApprovals.decision,
+        comment: milestoneApprovals.comment,
+        reviewedAt: milestoneApprovals.reviewedAt,
+        reviewerFirstName: profiles.firstName,
+        reviewerLastName: profiles.lastName,
+      })
+      .from(milestoneApprovals)
+      .leftJoin(profiles, eq(profiles.userId, milestoneApprovals.reviewedById))
+      .where(eq(milestoneApprovals.projectId, projectId))
+      .orderBy(desc(milestoneApprovals.reviewedAt)),
   ]);
   if (!project) notFound();
+
+  const approvalsByMilestone = new Map<string, typeof approvals>();
+  for (const a of approvals) {
+    const list = approvalsByMilestone.get(a.milestoneId) ?? [];
+    list.push(a);
+    approvalsByMilestone.set(a.milestoneId, list);
+  }
 
   const completedCount = milestones.filter(
     (m) => m.status === "APPROVED" || m.status === "COMPLETED"
@@ -169,6 +193,40 @@ export default async function MilestonesPage({
                         milestoneId={milestone.id}
                         projectId={projectId}
                       />
+                    </div>
+                  )}
+
+                  {/* Decision history — a visible record of what was agreed, and when */}
+                  {(approvalsByMilestone.get(milestone.id)?.length ?? 0) > 0 && (
+                    <div className="mt-4 pt-4 border-t border-[var(--pb-border-subtle)] space-y-2.5">
+                      {approvalsByMilestone.get(milestone.id)!.map((a) => {
+                        const approved = a.decision === "APPROVED";
+                        const who =
+                          a.reviewerFirstName || a.reviewerLastName
+                            ? `${a.reviewerFirstName ?? ""} ${a.reviewerLastName ?? ""}`.trim()
+                            : "Client";
+                        return (
+                          <div key={a.id} className="flex gap-2.5">
+                            {approved ? (
+                              <CheckCircle2 className="h-4 w-4 text-[var(--pb-success)] shrink-0 mt-0.5" />
+                            ) : (
+                              <AlertCircle className="h-4 w-4 text-yellow-400 shrink-0 mt-0.5" />
+                            )}
+                            <div className="min-w-0">
+                              <p className="text-xs text-[var(--pb-text-muted)]">
+                                <span className="text-white font-medium">{who}</span>{" "}
+                                {approved ? "approved this" : "requested changes"} on{" "}
+                                {formatDate(a.reviewedAt)}
+                              </p>
+                              {a.comment && (
+                                <p className="text-xs text-[var(--pb-text-subtle)] mt-0.5 italic">
+                                  &ldquo;{a.comment}&rdquo;
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

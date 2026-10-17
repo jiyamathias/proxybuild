@@ -53,6 +53,8 @@ export const profiles = pgTable("profiles", {
   phone: text("phone"),
   avatarUrl: text("avatar_url"),
   countryOfResidence: text("country_of_residence"),
+  // Optional second currency shown alongside NGN amounts; display only, never billing
+  preferredCurrency: text("preferred_currency"),
   timezone: text("timezone"),
   bio: text("bio"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

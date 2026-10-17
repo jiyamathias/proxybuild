@@ -11,6 +11,11 @@ const schema = z.object({
   phone: z.string().max(30).optional(),
   countryOfResidence: z.string().max(100).optional(),
   timezone: z.string().max(60).optional(),
+  // "" is the "Naira only" choice from the select; normalise it to null
+  preferredCurrency: z
+    .union([z.enum(["GBP", "USD", "CAD", "EUR", "AUD"]), z.literal("")])
+    .optional()
+    .transform((v) => (v === "" ? null : v)),
 });
 
 export async function PATCH(req: NextRequest) {
