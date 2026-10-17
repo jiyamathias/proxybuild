@@ -7,6 +7,7 @@ import {
   getProjectPayments,
   getProjectBudget,
 } from "@/lib/services/projects";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { formatCurrency, formatDate } from "@/lib/utils";
@@ -151,9 +152,17 @@ export default async function PaymentsPage({
         </div>
       ) : (
         <div>
-          <h2 className="text-sm font-semibold text-[var(--pb-text-muted)] uppercase tracking-wide mb-3">
-            Payment History ({payments.length})
-          </h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-semibold text-[var(--pb-text-muted)] uppercase tracking-wide">
+              Payment History ({payments.length})
+            </h2>
+            <Link
+              href={`/dashboard/projects/${projectId}/statement`}
+              className="text-xs text-[var(--pb-green)] hover:underline"
+            >
+              View statement
+            </Link>
+          </div>
           <div className="space-y-2">
             {payments.map((payment) => {
               const { variant, label } = paymentStatusBadge(payment.status);
@@ -181,6 +190,14 @@ export default async function PaymentsPage({
                     <Badge variant={variant} className="mt-1">
                       {label}
                     </Badge>
+                    {payment.status === "SUCCESSFUL" && (
+                      <Link
+                        href={`/dashboard/projects/${projectId}/payments/${payment.id}/receipt`}
+                        className="block text-xs text-[var(--pb-green)] hover:underline mt-1.5"
+                      >
+                        Receipt
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

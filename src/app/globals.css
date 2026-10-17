@@ -99,3 +99,23 @@ body {
   background: var(--pb-green-muted);
   color: var(--pb-green);
 }
+
+/* Print: strip app chrome so receipts and statements come out clean */
+@media print {
+  body {
+    background: #fff !important;
+  }
+  /* Dashboard shell: sidebar, top nav, and anything explicitly opted out */
+  aside,
+  header,
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  @page {
+    margin: 16mm;
+  }
+}
