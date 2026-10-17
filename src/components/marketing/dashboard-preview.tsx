@@ -140,8 +140,9 @@ export function DashboardPreview() {
           </div>
         </div>
 
-        {/* Main */}
-        <div className="flex-1 min-w-0 bg-[var(--pb-bg)] p-3 overflow-hidden">
+        {/* Main. Content runs past the fold, so the base is faded to suggest a
+            scrollable page rather than a hard crop. */}
+        <div className="relative flex-1 min-w-0 bg-[var(--pb-bg)] p-3 overflow-hidden">
           {/* Project header card */}
           <div className="bg-[var(--pb-surface)] border border-[var(--pb-border)] rounded-lg p-3.5">
             <div className="flex items-start justify-between gap-3 mb-3">
@@ -199,8 +200,10 @@ export function DashboardPreview() {
 
           {/* Tabs + content card */}
           <div className="bg-[var(--pb-surface)] border border-[var(--pb-border)] border-t-0 rounded-b-lg overflow-hidden -mt-px">
-            <div className="border-b border-[var(--pb-border)] overflow-hidden">
-              <div className="flex min-w-max">
+            {/* Tabs. The real view scrolls horizontally, so the overflow is faded
+                rather than cut, to read as a scroll edge instead of a broken crop. */}
+            <div className="relative border-b border-[var(--pb-border)]">
+              <div className="flex min-w-max overflow-hidden">
                 {TABS.map((tab) => (
                   <div
                     key={tab.label}
@@ -215,6 +218,10 @@ export function DashboardPreview() {
                   </div>
                 ))}
               </div>
+              <div
+                className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[var(--pb-surface)] to-transparent"
+                aria-hidden="true"
+              />
             </div>
 
             <div className="p-3 space-y-3">
@@ -305,6 +312,11 @@ export function DashboardPreview() {
               </div>
             </div>
           </div>
+
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[var(--pb-bg)] to-transparent"
+            aria-hidden="true"
+          />
         </div>
       </div>
     </div>
